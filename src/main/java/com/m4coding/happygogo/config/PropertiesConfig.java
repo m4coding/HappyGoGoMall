@@ -44,6 +44,9 @@ public class PropertiesConfig {
     @Value("${mybatis.type.alias.package}")
     private String mybatisTypeAliasPackage;
 
+    @Value("${mybatis.mapper.locations}")
+    private String mapperLocations;
+
     public String getUrl() {
         return url;
     }
@@ -82,6 +85,10 @@ public class PropertiesConfig {
 
     public String getMybatisTypeAliasPackage() {
         return mybatisTypeAliasPackage;
+    }
+
+    public String getMapperLocations() {
+        return mapperLocations;
     }
 
     //为了使用占位符，我们必须要配置一个PropertyPlaceholderConfigurer bean或PropertySourcesPlaceholderConfigurer bean。

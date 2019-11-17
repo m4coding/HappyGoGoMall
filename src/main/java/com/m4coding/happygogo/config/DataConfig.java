@@ -21,6 +21,7 @@ public class DataConfig {
      */
     @Bean
     public DataSource dataSource(PropertiesConfig propertiesConfig) {
+        //使用阿里的数据源
         DruidDataSource dataSource = new DruidDataSource();
         dataSource.setUsername(propertiesConfig.getUsername());
         dataSource.setPassword(propertiesConfig.getPassword());
@@ -45,7 +46,6 @@ public class DataConfig {
         // 动态获取SqlMapper  配置SqlSessionFactoryBean扫描XML映射文件的路径
         PathMatchingResourcePatternResolver classPathResource = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setMapperLocations(classPathResource.getResources(propertiesConfig.getMapperLocations()));
-
         return sqlSessionFactoryBean;
     }
 }

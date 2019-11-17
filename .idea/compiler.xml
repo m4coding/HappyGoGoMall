@@ -9,5 +9,8 @@
         <module name="HappyGoGo" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="HappyGoGoMall" target="1.5" />
+    </bytecodeTargetLevel>
   </component>
 </project>
