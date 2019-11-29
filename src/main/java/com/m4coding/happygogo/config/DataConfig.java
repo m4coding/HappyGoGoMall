@@ -18,9 +18,9 @@ import java.io.IOException;
  */
 @Configuration
 public class DataConfig {
-   /* *//**
+   /**
      * 配置数据源，用于连接数据库的
-     *//*
+     */
     @Bean
     public DataSource dataSource(PropertiesConfig propertiesConfig) {
         //使用阿里的数据源
@@ -32,13 +32,13 @@ public class DataConfig {
         return dataSource;
     }
 
-    *//**
+    /**
      * 配置mybatis的SqlSessionFactoryBean
      *
      * @param dataSource
      * @param propertiesConfig
      * @return
-     *//*
+     */
     @Bean
     public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource, PropertiesConfig propertiesConfig) throws IOException {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
@@ -51,5 +51,5 @@ public class DataConfig {
         //加载mybatis_config
         sqlSessionFactoryBean.setConfigLocation(new ClassPathResource(propertiesConfig.getMybatisConfigLocations()));
         return sqlSessionFactoryBean;
-    }*/
+    }
 }
