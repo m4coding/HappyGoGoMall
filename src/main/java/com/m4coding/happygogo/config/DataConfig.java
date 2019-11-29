@@ -4,6 +4,8 @@ import com.alibaba.druid.pool.DruidDataSource;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.FileSystemResource;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 
 import javax.sql.DataSource;
@@ -16,9 +18,9 @@ import java.io.IOException;
  */
 @Configuration
 public class DataConfig {
-    /**
+   /* *//**
      * 配置数据源，用于连接数据库的
-     */
+     *//*
     @Bean
     public DataSource dataSource(PropertiesConfig propertiesConfig) {
         //使用阿里的数据源
@@ -30,13 +32,13 @@ public class DataConfig {
         return dataSource;
     }
 
-    /**
+    *//**
      * 配置mybatis的SqlSessionFactoryBean
      *
      * @param dataSource
      * @param propertiesConfig
      * @return
-     */
+     *//*
     @Bean
     public SqlSessionFactoryBean sqlSessionFactoryBean(DataSource dataSource, PropertiesConfig propertiesConfig) throws IOException {
         SqlSessionFactoryBean sqlSessionFactoryBean = new SqlSessionFactoryBean();
@@ -46,6 +48,8 @@ public class DataConfig {
         // 动态获取SqlMapper  配置SqlSessionFactoryBean扫描XML映射文件的路径
         PathMatchingResourcePatternResolver classPathResource = new PathMatchingResourcePatternResolver();
         sqlSessionFactoryBean.setMapperLocations(classPathResource.getResources(propertiesConfig.getMapperLocations()));
+        //加载mybatis_config
+        sqlSessionFactoryBean.setConfigLocation(new ClassPathResource(propertiesConfig.getMybatisConfigLocations()));
         return sqlSessionFactoryBean;
-    }
+    }*/
 }
