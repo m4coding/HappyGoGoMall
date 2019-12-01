@@ -6,11 +6,30 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
+        <module name="mall-manager" />
         <module name="HappyGoGo" />
+        <module name="mall-foreground" />
+        <module name="mall-base" />
+        <module name="mall-demo" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="base" target="1.8" />
+      <module name="demo" target="1.8" />
+      <module name="foreground" target="1.8" />
       <module name="HappyGoGoMall" target="1.5" />
     </bytecodeTargetLevel>
+  </component>
+  <component name="JavacSettings">
+    <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="HappyGoGo" options="-parameters" />
+      <module name="base" options="-parameters" />
+      <module name="demo" options="-parameters" />
+      <module name="foreground" options="-parameters" />
+      <module name="mall-base" options="-parameters" />
+      <module name="mall-demo" options="-parameters" />
+      <module name="mall-foreground" options="-parameters" />
+      <module name="mall-manager" options="-parameters" />
+    </option>
   </component>
 </project>
