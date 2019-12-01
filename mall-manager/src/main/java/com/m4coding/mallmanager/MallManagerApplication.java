@@ -1,0 +1,13 @@
+package com.m4coding.mallmanager;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication
+public class MallManagerApplication {
+
+    public static void main(String[] args) {
+        SpringApplication.run(MallManagerApplication.class, args);
+    }
+
+}
