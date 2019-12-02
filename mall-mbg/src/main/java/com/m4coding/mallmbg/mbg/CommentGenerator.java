@@ -1,4 +1,4 @@
-package com.m4coding.mallforeground.mbg;
+package com.m4coding.mallmbg.mbg;
 
 import org.mybatis.generator.api.IntrospectedColumn;
 import org.mybatis.generator.api.IntrospectedTable;
