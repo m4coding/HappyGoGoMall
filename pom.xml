@@ -15,6 +15,13 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <modules>
+        <module>mall-base</module>
+        <module>mall-demo</module>
+        <module>mall-foreground</module>
+        <module>mall-manager</module>
+    </modules>
+
     <!--属性统一设置-->
     <properties>
         <!--工程内置属性设置-->
