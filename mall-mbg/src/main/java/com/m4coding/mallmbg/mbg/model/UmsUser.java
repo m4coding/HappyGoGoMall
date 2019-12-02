@@ -1,8 +1,8 @@
-package com.m4coding.mallforeground.mbg.model;
+package com.m4coding.mallmbg.mbg.model;
 
 import java.io.Serializable;
 
-public class User implements Serializable {
+public class UmsUser implements Serializable {
     /**
      * 用户ID
      *

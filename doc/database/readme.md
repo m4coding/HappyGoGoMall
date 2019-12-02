@@ -18,3 +18,15 @@ Workspace.sws是PowderDesigner的workspace文件
 1、先创建一个数据库
 
 2、然后再运行对应的创建表的sql语句
+
+
+# 表结构
+
+用户模块
+
+    ums_user  用户信息表
+    ums_user_auth 用户认证信息表
+
+商品模块
+
+    pms_product  商品信息表

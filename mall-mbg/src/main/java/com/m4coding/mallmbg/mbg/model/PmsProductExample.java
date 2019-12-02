@@ -1,17 +1,17 @@
-package com.m4coding.mallforeground.mbg.model;
+package com.m4coding.mallmbg.mbg.model;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class ProductsExample {
+public class PmsProductExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public ProductsExample() {
+    public PmsProductExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

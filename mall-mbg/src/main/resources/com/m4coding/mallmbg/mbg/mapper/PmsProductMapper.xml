@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.m4coding.mallforeground.mbg.mapper.ProductsMapper">
-  <resultMap id="BaseResultMap" type="com.m4coding.mallforeground.mbg.model.Products">
+<mapper namespace="com.m4coding.mallmbg.mbg.mapper.PmsProductMapper">
+  <resultMap id="BaseResultMap" type="com.m4coding.mallmbg.mbg.model.PmsProduct">
     <id column="product_id" jdbcType="INTEGER" property="productId" />
     <result column="product_name" jdbcType="VARCHAR" property="productName" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
@@ -10,7 +10,7 @@
     <result column="sale_price" jdbcType="DECIMAL" property="salePrice" />
     <result column="category_id" jdbcType="INTEGER" property="categoryId" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.m4coding.mallforeground.mbg.model.Products">
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.m4coding.mallmbg.mbg.model.PmsProduct">
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
     <result column="icon" jdbcType="LONGVARCHAR" property="icon" />
   </resultMap>
@@ -79,7 +79,7 @@
   <sql id="Blob_Column_List">
     description, icon
   </sql>
-  <select id="selectByExampleWithBLOBs" parameterType="com.m4coding.mallforeground.mbg.model.ProductsExample" resultMap="ResultMapWithBLOBs">
+  <select id="selectByExampleWithBLOBs" parameterType="com.m4coding.mallmbg.mbg.model.PmsProductExample" resultMap="ResultMapWithBLOBs">
     select
     <if test="distinct">
       distinct
@@ -87,7 +87,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from products
+    from pms_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -95,13 +95,13 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" parameterType="com.m4coding.mallforeground.mbg.model.ProductsExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.m4coding.mallmbg.mbg.model.PmsProductExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from products
+    from pms_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -114,35 +114,36 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from products
+    from pms_product
     where product_id = #{productId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from products
+    delete from pms_product
     where product_id = #{productId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.m4coding.mallforeground.mbg.model.ProductsExample">
-    delete from products
+  <delete id="deleteByExample" parameterType="com.m4coding.mallmbg.mbg.model.PmsProductExample">
+    delete from pms_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.m4coding.mallforeground.mbg.model.Products">
-    insert into products (product_id, product_name, create_time, 
-      purchase_price, market_price, sale_price, 
-      category_id, description, icon
-      )
-    values (#{productId,jdbcType=INTEGER}, #{productName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{purchasePrice,jdbcType=DECIMAL}, #{marketPrice,jdbcType=DECIMAL}, #{salePrice,jdbcType=DECIMAL}, 
-      #{categoryId,jdbcType=INTEGER}, #{description,jdbcType=LONGVARCHAR}, #{icon,jdbcType=LONGVARCHAR}
-      )
+  <insert id="insert" parameterType="com.m4coding.mallmbg.mbg.model.PmsProduct">
+    <selectKey keyProperty="productId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pms_product (product_name, create_time, purchase_price, 
+      market_price, sale_price, category_id, 
+      description, icon)
+    values (#{productName,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{purchasePrice,jdbcType=DECIMAL}, 
+      #{marketPrice,jdbcType=DECIMAL}, #{salePrice,jdbcType=DECIMAL}, #{categoryId,jdbcType=INTEGER}, 
+      #{description,jdbcType=LONGVARCHAR}, #{icon,jdbcType=LONGVARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.m4coding.mallforeground.mbg.model.Products">
-    insert into products
+  <insert id="insertSelective" parameterType="com.m4coding.mallmbg.mbg.model.PmsProduct">
+    <selectKey keyProperty="productId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into pms_product
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="productId != null">
-        product_id,
-      </if>
       <if test="productName != null">
         product_name,
       </if>
@@ -169,9 +170,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="productId != null">
-        #{productId,jdbcType=INTEGER},
-      </if>
       <if test="productName != null">
         #{productName,jdbcType=VARCHAR},
       </if>
@@ -198,14 +196,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.m4coding.mallforeground.mbg.model.ProductsExample" resultType="java.lang.Long">
-    select count(*) from products
+  <select id="countByExample" parameterType="com.m4coding.mallmbg.mbg.model.PmsProductExample" resultType="java.lang.Long">
+    select count(*) from pms_product
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update products
+    update pms_product
     <set>
       <if test="record.productId != null">
         product_id = #{record.productId,jdbcType=INTEGER},
@@ -240,7 +238,7 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map">
-    update products
+    update pms_product
     set product_id = #{record.productId,jdbcType=INTEGER},
       product_name = #{record.productName,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -255,7 +253,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update products
+    update pms_product
     set product_id = #{record.productId,jdbcType=INTEGER},
       product_name = #{record.productName,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=TIMESTAMP},
@@ -267,8 +265,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.m4coding.mallforeground.mbg.model.Products">
-    update products
+  <update id="updateByPrimaryKeySelective" parameterType="com.m4coding.mallmbg.mbg.model.PmsProduct">
+    update pms_product
     <set>
       <if test="productName != null">
         product_name = #{productName,jdbcType=VARCHAR},
@@ -297,8 +295,8 @@
     </set>
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.m4coding.mallforeground.mbg.model.Products">
-    update products
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.m4coding.mallmbg.mbg.model.PmsProduct">
+    update pms_product
     set product_name = #{productName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       purchase_price = #{purchasePrice,jdbcType=DECIMAL},
@@ -309,8 +307,8 @@
       icon = #{icon,jdbcType=LONGVARCHAR}
     where product_id = #{productId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.m4coding.mallforeground.mbg.model.Products">
-    update products
+  <update id="updateByPrimaryKey" parameterType="com.m4coding.mallmbg.mbg.model.PmsProduct">
+    update pms_product
     set product_name = #{productName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
       purchase_price = #{purchasePrice,jdbcType=DECIMAL},

@@ -1,9 +1,9 @@
-package com.m4coding.mallforeground.mbg.model;
+package com.m4coding.mallmbg.mbg.model;
 
 import java.io.Serializable;
 import java.util.Date;
 
-public class Products implements Serializable {
+public class PmsProduct implements Serializable {
     /**
      * 商品ID
      *

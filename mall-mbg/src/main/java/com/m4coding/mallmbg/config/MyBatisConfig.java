@@ -1,4 +1,4 @@
-package com.m4coding.mallforeground.config;
+package com.m4coding.mallmbg.config;
 
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +10,6 @@ import org.springframework.context.annotation.Configuration;
  * MapperScan配置查找Mapper接口路径
  */
 @Configuration
-@MapperScan("com.m4coding.mallforegound.mbg.mapper")
+@MapperScan("com.m4coding.mallmbg.mbg.mapper")
 public class MyBatisConfig {
 }

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.m4coding.mallforeground.mbg.mapper.UserMapper">
-  <resultMap id="BaseResultMap" type="com.m4coding.mallforeground.mbg.model.User">
+<mapper namespace="com.m4coding.mallmbg.mbg.mapper.UmsUserMapper">
+  <resultMap id="BaseResultMap" type="com.m4coding.mallmbg.mbg.model.UmsUser">
     <id column="user_id" jdbcType="INTEGER" property="userId" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="status" jdbcType="INTEGER" property="status" />
@@ -67,13 +67,13 @@
   <sql id="Base_Column_List">
     user_id, user_name, status
   </sql>
-  <select id="selectByExample" parameterType="com.m4coding.mallforeground.mbg.model.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.m4coding.mallmbg.mbg.model.UmsUserExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user
+    from ums_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -84,31 +84,32 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
+    from ums_user
     where user_id = #{userId,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
+    delete from ums_user
     where user_id = #{userId,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.m4coding.mallforeground.mbg.model.UserExample">
-    delete from user
+  <delete id="deleteByExample" parameterType="com.m4coding.mallmbg.mbg.model.UmsUserExample">
+    delete from ums_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.m4coding.mallforeground.mbg.model.User">
-    insert into user (user_id, user_name, status
-      )
-    values (#{userId,jdbcType=INTEGER}, #{userName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}
-      )
+  <insert id="insert" parameterType="com.m4coding.mallmbg.mbg.model.UmsUser">
+    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ums_user (user_name, status)
+    values (#{userName,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.m4coding.mallforeground.mbg.model.User">
-    insert into user
+  <insert id="insertSelective" parameterType="com.m4coding.mallmbg.mbg.model.UmsUser">
+    <selectKey keyProperty="userId" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into ums_user
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        user_id,
-      </if>
       <if test="userName != null">
         user_name,
       </if>
@@ -117,9 +118,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="userId != null">
-        #{userId,jdbcType=INTEGER},
-      </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
       </if>
@@ -128,14 +126,14 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.m4coding.mallforeground.mbg.model.UserExample" resultType="java.lang.Long">
-    select count(*) from user
+  <select id="countByExample" parameterType="com.m4coding.mallmbg.mbg.model.UmsUserExample" resultType="java.lang.Long">
+    select count(*) from ums_user
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user
+    update ums_user
     <set>
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
@@ -152,7 +150,7 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user
+    update ums_user
     set user_id = #{record.userId,jdbcType=INTEGER},
       user_name = #{record.userName,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER}
@@ -160,8 +158,8 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.m4coding.mallforeground.mbg.model.User">
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="com.m4coding.mallmbg.mbg.model.UmsUser">
+    update ums_user
     <set>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
@@ -172,8 +170,8 @@
     </set>
     where user_id = #{userId,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.m4coding.mallforeground.mbg.model.User">
-    update user
+  <update id="updateByPrimaryKey" parameterType="com.m4coding.mallmbg.mbg.model.UmsUser">
+    update ums_user
     set user_name = #{userName,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER}
     where user_id = #{userId,jdbcType=INTEGER}
