@@ -48,6 +48,10 @@
             <generatedKey column="auth_id" sqlStatement="MySql" identity="true"/>
         </table>
 
+        <table tableName="ums_admin_login_log">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
         <table tableName="ums_user">
             <generatedKey column="user_id" sqlStatement="MySql" identity="true"/>
         </table>

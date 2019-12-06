@@ -12,6 +12,12 @@
    
     状态业务码表示：20000表示成功，其他2xxxx表示失败
  
+     SUCCESS(20000, "操作成功"),
+     FAILED(20500, "操作失败"),
+     VALIDATE_FAILED(20404, "参数检验失败"),
+     UNAUTHORIZED(20401, "暂未登录或token已经过期"),
+     FORBIDDEN(20403, "没有相关权限");
+     
  ### 参考
  
  [前后端接口规范](https://github.com/f2e-journey/treasure/blob/master/api.md)

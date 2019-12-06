@@ -1,70 +1,35 @@
 package com.m4coding.mallmbg.mbg.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 import java.util.Date;
 
 public class PmsProduct implements Serializable {
-    /**
-     * 商品ID
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "商品ID")
     private Integer productId;
 
-    /**
-     * 商品名称
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "商品名称")
     private String productName;
 
-    /**
-     * 创建时间
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "创建时间")
     private Date createTime;
 
-    /**
-     * 商品采购价
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "商品采购价")
     private Long purchasePrice;
 
-    /**
-     * 市场价格
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "市场价格")
     private Long marketPrice;
 
-    /**
-     * 销售价格
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "销售价格")
     private Long salePrice;
 
-    /**
-     * 类别ID
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "类别ID")
     private Integer categoryId;
 
-    /**
-     * 商品描述
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "商品描述")
     private String description;
 
-    /**
-     * 商品图片
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "商品图片")
     private String icon;
 
     private static final long serialVersionUID = 1L;

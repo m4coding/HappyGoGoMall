@@ -224,143 +224,143 @@ public class UmsUserAuthExample {
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeIsNull() {
-            addCriterion("indentity_type is null");
+        public Criteria andIdentityTypeIsNull() {
+            addCriterion("identity_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeIsNotNull() {
-            addCriterion("indentity_type is not null");
+        public Criteria andIdentityTypeIsNotNull() {
+            addCriterion("identity_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeEqualTo(String value) {
-            addCriterion("indentity_type =", value, "indentityType");
+        public Criteria andIdentityTypeEqualTo(String value) {
+            addCriterion("identity_type =", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeNotEqualTo(String value) {
-            addCriterion("indentity_type <>", value, "indentityType");
+        public Criteria andIdentityTypeNotEqualTo(String value) {
+            addCriterion("identity_type <>", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeGreaterThan(String value) {
-            addCriterion("indentity_type >", value, "indentityType");
+        public Criteria andIdentityTypeGreaterThan(String value) {
+            addCriterion("identity_type >", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeGreaterThanOrEqualTo(String value) {
-            addCriterion("indentity_type >=", value, "indentityType");
+        public Criteria andIdentityTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("identity_type >=", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeLessThan(String value) {
-            addCriterion("indentity_type <", value, "indentityType");
+        public Criteria andIdentityTypeLessThan(String value) {
+            addCriterion("identity_type <", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeLessThanOrEqualTo(String value) {
-            addCriterion("indentity_type <=", value, "indentityType");
+        public Criteria andIdentityTypeLessThanOrEqualTo(String value) {
+            addCriterion("identity_type <=", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeLike(String value) {
-            addCriterion("indentity_type like", value, "indentityType");
+        public Criteria andIdentityTypeLike(String value) {
+            addCriterion("identity_type like", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeNotLike(String value) {
-            addCriterion("indentity_type not like", value, "indentityType");
+        public Criteria andIdentityTypeNotLike(String value) {
+            addCriterion("identity_type not like", value, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeIn(List<String> values) {
-            addCriterion("indentity_type in", values, "indentityType");
+        public Criteria andIdentityTypeIn(List<String> values) {
+            addCriterion("identity_type in", values, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeNotIn(List<String> values) {
-            addCriterion("indentity_type not in", values, "indentityType");
+        public Criteria andIdentityTypeNotIn(List<String> values) {
+            addCriterion("identity_type not in", values, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeBetween(String value1, String value2) {
-            addCriterion("indentity_type between", value1, value2, "indentityType");
+        public Criteria andIdentityTypeBetween(String value1, String value2) {
+            addCriterion("identity_type between", value1, value2, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityTypeNotBetween(String value1, String value2) {
-            addCriterion("indentity_type not between", value1, value2, "indentityType");
+        public Criteria andIdentityTypeNotBetween(String value1, String value2) {
+            addCriterion("identity_type not between", value1, value2, "identityType");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityIsNull() {
-            addCriterion("indentity is null");
+        public Criteria andIdentityIsNull() {
+            addCriterion("identity is null");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityIsNotNull() {
-            addCriterion("indentity is not null");
+        public Criteria andIdentityIsNotNull() {
+            addCriterion("identity is not null");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityEqualTo(String value) {
-            addCriterion("indentity =", value, "indentity");
+        public Criteria andIdentityEqualTo(String value) {
+            addCriterion("identity =", value, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityNotEqualTo(String value) {
-            addCriterion("indentity <>", value, "indentity");
+        public Criteria andIdentityNotEqualTo(String value) {
+            addCriterion("identity <>", value, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityGreaterThan(String value) {
-            addCriterion("indentity >", value, "indentity");
+        public Criteria andIdentityGreaterThan(String value) {
+            addCriterion("identity >", value, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityGreaterThanOrEqualTo(String value) {
-            addCriterion("indentity >=", value, "indentity");
+        public Criteria andIdentityGreaterThanOrEqualTo(String value) {
+            addCriterion("identity >=", value, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityLessThan(String value) {
-            addCriterion("indentity <", value, "indentity");
+        public Criteria andIdentityLessThan(String value) {
+            addCriterion("identity <", value, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityLessThanOrEqualTo(String value) {
-            addCriterion("indentity <=", value, "indentity");
+        public Criteria andIdentityLessThanOrEqualTo(String value) {
+            addCriterion("identity <=", value, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityLike(String value) {
-            addCriterion("indentity like", value, "indentity");
+        public Criteria andIdentityLike(String value) {
+            addCriterion("identity like", value, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityNotLike(String value) {
-            addCriterion("indentity not like", value, "indentity");
+        public Criteria andIdentityNotLike(String value) {
+            addCriterion("identity not like", value, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityIn(List<String> values) {
-            addCriterion("indentity in", values, "indentity");
+        public Criteria andIdentityIn(List<String> values) {
+            addCriterion("identity in", values, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityNotIn(List<String> values) {
-            addCriterion("indentity not in", values, "indentity");
+        public Criteria andIdentityNotIn(List<String> values) {
+            addCriterion("identity not in", values, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityBetween(String value1, String value2) {
-            addCriterion("indentity between", value1, value2, "indentity");
+        public Criteria andIdentityBetween(String value1, String value2) {
+            addCriterion("identity between", value1, value2, "identity");
             return (Criteria) this;
         }
 
-        public Criteria andIndentityNotBetween(String value1, String value2) {
-            addCriterion("indentity not between", value1, value2, "indentity");
+        public Criteria andIdentityNotBetween(String value1, String value2) {
+            addCriterion("identity not between", value1, value2, "identity");
             return (Criteria) this;
         }
 

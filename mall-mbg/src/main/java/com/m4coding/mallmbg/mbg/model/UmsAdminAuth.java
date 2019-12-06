@@ -1,48 +1,25 @@
 package com.m4coding.mallmbg.mbg.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class UmsAdminAuth implements Serializable {
-    /**
-     * 认证ID
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "认证ID")
     private Integer authId;
 
-    /**
-     * 用户ID
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "用户ID")
     private Integer adminId;
 
-    /**
-     * 登录类型
-     *
-     * @mbg.generated
-     */
-    private String indentityType;
+    @ApiModelProperty(value = "登录类型  如：admin表示系统用户，phone表示手机登录，weixin表示微信登录，qq表示qq登录")
+    private String identityType;
 
-    /**
-     * 识别标识
-     *
-     * @mbg.generated
-     */
-    private String indentity;
+    @ApiModelProperty(value = "识别标识  如：登录账号、邮箱地址、手机号、微信号、qq号等")
+    private String identity;
 
-    /**
-     * 授权凭证
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "授权凭证  如：登录账号对应的是密码、第三方登录对应的是token")
     private String certificate;
 
-    /**
-     * 是否验证
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "是否验证 true表示已被验证，false表示未验证")
     private Boolean ifVerify;
 
     private static final long serialVersionUID = 1L;
@@ -63,20 +40,20 @@ public class UmsAdminAuth implements Serializable {
         this.adminId = adminId;
     }
 
-    public String getIndentityType() {
-        return indentityType;
+    public String getIdentityType() {
+        return identityType;
     }
 
-    public void setIndentityType(String indentityType) {
-        this.indentityType = indentityType;
+    public void setIdentityType(String identityType) {
+        this.identityType = identityType;
     }
 
-    public String getIndentity() {
-        return indentity;
+    public String getIdentity() {
+        return identity;
     }
 
-    public void setIndentity(String indentity) {
-        this.indentity = indentity;
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 
     public String getCertificate() {
@@ -103,8 +80,8 @@ public class UmsAdminAuth implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", authId=").append(authId);
         sb.append(", adminId=").append(adminId);
-        sb.append(", indentityType=").append(indentityType);
-        sb.append(", indentity=").append(indentity);
+        sb.append(", identityType=").append(identityType);
+        sb.append(", identity=").append(identity);
         sb.append(", certificate=").append(certificate);
         sb.append(", ifVerify=").append(ifVerify);
         sb.append(", serialVersionUID=").append(serialVersionUID);

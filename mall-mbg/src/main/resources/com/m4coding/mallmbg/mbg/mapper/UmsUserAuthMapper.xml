@@ -4,8 +4,8 @@
   <resultMap id="BaseResultMap" type="com.m4coding.mallmbg.mbg.model.UmsUserAuth">
     <id column="auth_id" jdbcType="INTEGER" property="authId" />
     <result column="user_id" jdbcType="INTEGER" property="userId" />
-    <result column="indentity_type" jdbcType="VARCHAR" property="indentityType" />
-    <result column="indentity" jdbcType="VARCHAR" property="indentity" />
+    <result column="identity_type" jdbcType="VARCHAR" property="identityType" />
+    <result column="identity" jdbcType="VARCHAR" property="identity" />
     <result column="certificate" jdbcType="VARCHAR" property="certificate" />
     <result column="if_verify" jdbcType="BIT" property="ifVerify" />
   </resultMap>
@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    auth_id, user_id, indentity_type, indentity, certificate, if_verify
+    auth_id, user_id, identity_type, identity, certificate, if_verify
   </sql>
   <select id="selectByExample" parameterType="com.m4coding.mallmbg.mbg.model.UmsUserAuthExample" resultMap="BaseResultMap">
     select
@@ -104,9 +104,9 @@
     <selectKey keyProperty="authId" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into ums_user_auth (user_id, indentity_type, indentity, 
+    insert into ums_user_auth (user_id, identity_type, identity, 
       certificate, if_verify)
-    values (#{userId,jdbcType=INTEGER}, #{indentityType,jdbcType=VARCHAR}, #{indentity,jdbcType=VARCHAR}, 
+    values (#{userId,jdbcType=INTEGER}, #{identityType,jdbcType=VARCHAR}, #{identity,jdbcType=VARCHAR}, 
       #{certificate,jdbcType=VARCHAR}, #{ifVerify,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.m4coding.mallmbg.mbg.model.UmsUserAuth">
@@ -118,11 +118,11 @@
       <if test="userId != null">
         user_id,
       </if>
-      <if test="indentityType != null">
-        indentity_type,
+      <if test="identityType != null">
+        identity_type,
       </if>
-      <if test="indentity != null">
-        indentity,
+      <if test="identity != null">
+        identity,
       </if>
       <if test="certificate != null">
         certificate,
@@ -135,11 +135,11 @@
       <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="indentityType != null">
-        #{indentityType,jdbcType=VARCHAR},
+      <if test="identityType != null">
+        #{identityType,jdbcType=VARCHAR},
       </if>
-      <if test="indentity != null">
-        #{indentity,jdbcType=VARCHAR},
+      <if test="identity != null">
+        #{identity,jdbcType=VARCHAR},
       </if>
       <if test="certificate != null">
         #{certificate,jdbcType=VARCHAR},
@@ -164,11 +164,11 @@
       <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.indentityType != null">
-        indentity_type = #{record.indentityType,jdbcType=VARCHAR},
+      <if test="record.identityType != null">
+        identity_type = #{record.identityType,jdbcType=VARCHAR},
       </if>
-      <if test="record.indentity != null">
-        indentity = #{record.indentity,jdbcType=VARCHAR},
+      <if test="record.identity != null">
+        identity = #{record.identity,jdbcType=VARCHAR},
       </if>
       <if test="record.certificate != null">
         certificate = #{record.certificate,jdbcType=VARCHAR},
@@ -185,8 +185,8 @@
     update ums_user_auth
     set auth_id = #{record.authId,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=INTEGER},
-      indentity_type = #{record.indentityType,jdbcType=VARCHAR},
-      indentity = #{record.indentity,jdbcType=VARCHAR},
+      identity_type = #{record.identityType,jdbcType=VARCHAR},
+      identity = #{record.identity,jdbcType=VARCHAR},
       certificate = #{record.certificate,jdbcType=VARCHAR},
       if_verify = #{record.ifVerify,jdbcType=BIT}
     <if test="_parameter != null">
@@ -199,11 +199,11 @@
       <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="indentityType != null">
-        indentity_type = #{indentityType,jdbcType=VARCHAR},
+      <if test="identityType != null">
+        identity_type = #{identityType,jdbcType=VARCHAR},
       </if>
-      <if test="indentity != null">
-        indentity = #{indentity,jdbcType=VARCHAR},
+      <if test="identity != null">
+        identity = #{identity,jdbcType=VARCHAR},
       </if>
       <if test="certificate != null">
         certificate = #{certificate,jdbcType=VARCHAR},
@@ -217,8 +217,8 @@
   <update id="updateByPrimaryKey" parameterType="com.m4coding.mallmbg.mbg.model.UmsUserAuth">
     update ums_user_auth
     set user_id = #{userId,jdbcType=INTEGER},
-      indentity_type = #{indentityType,jdbcType=VARCHAR},
-      indentity = #{indentity,jdbcType=VARCHAR},
+      identity_type = #{identityType,jdbcType=VARCHAR},
+      identity = #{identity,jdbcType=VARCHAR},
       certificate = #{certificate,jdbcType=VARCHAR},
       if_verify = #{ifVerify,jdbcType=BIT}
     where auth_id = #{authId,jdbcType=INTEGER}

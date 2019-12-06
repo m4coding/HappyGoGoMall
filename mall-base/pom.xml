@@ -6,6 +6,8 @@
     <groupId>com.m4coding</groupId>
     <artifactId>mall-base</artifactId>
     <version>1.0.0</version>
+    <packaging>jar</packaging>
+
     <name>mall-base</name>
     <description>Mall Base Module</description>
 

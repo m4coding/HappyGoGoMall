@@ -1,27 +1,16 @@
 package com.m4coding.mallmbg.mbg.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class UmsAdmin implements Serializable {
-    /**
-     * 管理员ID
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "管理员ID")
     private Integer adminId;
 
-    /**
-     * 管理员名称
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "管理员名称")
     private String adminName;
 
-    /**
-     * 管理员状态
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "管理员状态 1表示启用状态，0表示禁用状态")
     private Integer adminStatus;
 
     private static final long serialVersionUID = 1L;

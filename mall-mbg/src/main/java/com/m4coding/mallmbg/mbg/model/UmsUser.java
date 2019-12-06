@@ -1,27 +1,16 @@
 package com.m4coding.mallmbg.mbg.model;
 
+import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
 
 public class UmsUser implements Serializable {
-    /**
-     * 用户ID
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "用户ID")
     private Integer userId;
 
-    /**
-     * 用户名
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "用户名")
     private String userName;
 
-    /**
-     * 用户状态
-     *
-     * @mbg.generated
-     */
+    @ApiModelProperty(value = "用户状态 1表示启用状态，0表示禁用状态")
     private Integer status;
 
     private static final long serialVersionUID = 1L;
