@@ -5,6 +5,7 @@ import com.m4coding.mallbase.api.CommonResult;
 import com.m4coding.mallmanager.dto.UmsUserManagerLoginParam;
 import com.m4coding.mallmanager.dto.UmsUserManagerRegisterParam;
 import com.m4coding.mallmanager.service.UmsUserManagerService;
+import com.m4coding.mallbase.version.ApiVersion;
 import com.m4coding.mallmbg.mbg.model.UmsAdmin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -12,13 +13,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.parameters.P;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -29,7 +26,7 @@ import java.util.Map;
  */
 @Api(tags = "管理员相关")
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("api/admin")
 public class UmsUserManagerController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UmsUserManagerController.class);
@@ -41,8 +38,10 @@ public class UmsUserManagerController {
     @Value("${jwt.tokenHead}")
     private String tokenHead;
 
+
     @ApiOperation(value = "登录，成功后会返回token")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @ApiVersion
+    @PostMapping(value = "/{version}/login")
     public CommonResult login(@Valid @RequestBody UmsUserManagerLoginParam loginParam, BindingResult bindingResult) {
         //判断各个入参是否符合条件
         if (bindingResult.hasErrors()) {

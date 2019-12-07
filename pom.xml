@@ -22,6 +22,7 @@
         <module>mall-foreground</module>
         <module>mall-manager</module>
         <module>mall-security</module>
+        <module>mall-mbg</module>
     </modules>
 
     <!--属性统一设置-->

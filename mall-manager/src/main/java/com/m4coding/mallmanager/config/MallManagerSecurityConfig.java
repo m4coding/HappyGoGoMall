@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
  */
 @Configuration
 @EnableWebSecurity
-public class MallManagerSecurity extends SecurityConfig {
+public class MallManagerSecurityConfig extends SecurityConfig {
 
     // Spring会自动寻找实现接口的类注入,会找到我们的 UserDetailsServiceImpl类
     @Autowired
