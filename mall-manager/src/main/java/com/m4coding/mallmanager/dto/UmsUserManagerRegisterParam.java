@@ -24,8 +24,8 @@ public class UmsUserManagerRegisterParam {
     @NotEmpty(message = "授权凭证不能为空")
     private String certificate;
 
-    @ApiModelProperty(value = "是否验证 true表示已被验证，false表示未验证", required = true)
-    private Boolean ifVerify;
+//    @ApiModelProperty(value = "是否验证 true表示已被验证，false表示未验证", required = true)
+//    private Boolean ifVerify;
 
     public String getIdentityType() {
         return identityType;
@@ -51,11 +51,11 @@ public class UmsUserManagerRegisterParam {
         this.certificate = certificate;
     }
 
-    public Boolean getIfVerify() {
-        return ifVerify;
-    }
-
-    public void setIfVerify(Boolean ifVerify) {
-        this.ifVerify = ifVerify;
-    }
+//    public Boolean getIfVerify() {
+//        return ifVerify;
+//    }
+//
+//    public void setIfVerify(Boolean ifVerify) {
+//        this.ifVerify = ifVerify;
+//    }
 }

@@ -13,6 +13,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
@@ -49,9 +50,17 @@ public class UmsUserManagerController {
             return CommonResult.validateFailed(error.getDefaultMessage());
         }
 
-        String token = umsUserManagerService.login(loginParam.getAdminName(), loginParam.getPassword());
+        String token = null;
+        String errorMsg = "用户名或密码错误";
+        try {
+            token = umsUserManagerService.login(loginParam.getAdminName(), loginParam.getPassword());
+        } catch (AuthenticationException e) {
+            errorMsg = e.getMessage();
+            LOGGER.error("登录异常:{}", e.getMessage());
+        }
+
         if (StrUtil.isEmpty(token)) {
-            return CommonResult.validateFailed("用户名或密码错误");
+            return CommonResult.validateFailed(errorMsg);
         }
 
         Map<String, String> tokenMap = new HashMap<>();
@@ -62,7 +71,8 @@ public class UmsUserManagerController {
 
 
     @ApiOperation(value = "注册管理员")
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @ApiVersion(1)
+    @RequestMapping(value = "{version}/register", method = RequestMethod.POST)
     public CommonResult<UmsAdmin> register(@Valid @RequestBody UmsUserManagerRegisterParam umsUserManagerRegisterParam,
                                            BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {

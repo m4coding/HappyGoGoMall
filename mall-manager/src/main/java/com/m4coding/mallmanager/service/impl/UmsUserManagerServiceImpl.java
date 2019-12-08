@@ -55,33 +55,36 @@ public class UmsUserManagerServiceImpl implements UmsUserManagerService, UserDet
     private JwtTokenUtil jwtTokenUtil;
 
     @Override
-    public String login(String adminName, String password) {
+    public String login(String adminName, String password) throws AuthenticationException {
         String token = null;
-        try {
-            UmsAdminExample umsAdminExample = new UmsAdminExample();
-            umsAdminExample.createCriteria().andAdminNameEqualTo(adminName);
-            List<UmsAdmin> list = umsAdminMapper.selectByExample(umsAdminExample);
-            if (null == list || list.isEmpty()) {
-                return null;
+
+        UmsAdminExample umsAdminExample = new UmsAdminExample();
+        umsAdminExample.createCriteria().andAdminNameEqualTo(adminName);
+        List<UmsAdmin> list = umsAdminMapper.selectByExample(umsAdminExample);
+        if (null == list || list.isEmpty()) {
+            return null;
+        }
+
+        UmsAdminAuth umsAdminAuth = umsAdminAuthMapper.selectByPrimaryKey(list.get(0).getAdminId());
+        if (umsAdminAuth != null) {
+            //判断激活状态
+            if (!umsAdminAuth.getIfVerify()) {
+                throw new BadCredentialsException("账号未被激活");
             }
 
-            UmsAdminAuth umsAdminAuth = umsAdminAuthMapper.selectByPrimaryKey(list.get(0).getAdminId());
-            if (umsAdminAuth != null) {
-                //此步类似实现AuthenticationManager鉴权
-                AdminUserDetails adminUserDetails = (AdminUserDetails) loadUserByUsername(adminName);
-                if(!passwordEncoder.matches(password, adminUserDetails.getPassword())){
-                    throw new BadCredentialsException("密码不正确");
-                }
-                //生成authentication，并保存在SecurityContext中
-                UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(adminUserDetails, null, adminUserDetails.getAuthorities());
-                SecurityContextHolder.getContext().setAuthentication(authentication);
-                //生成JWT token
-                token = jwtTokenUtil.generateToken(adminUserDetails);
-                insertLoginLog(list.get(0));
+            //此步类似实现AuthenticationManager鉴权
+            AdminUserDetails adminUserDetails = (AdminUserDetails) loadUserByUsername(adminName);
+            if(!passwordEncoder.matches(password, adminUserDetails.getPassword())){
+                throw new BadCredentialsException("密码不正确");
             }
-        } catch (AuthenticationException e) {
-            LOGGER.error("登录异常:{}", e.getMessage());
+            //生成authentication，并保存在SecurityContext中
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(adminUserDetails, null, adminUserDetails.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+            //生成JWT token
+            token = jwtTokenUtil.generateToken(adminUserDetails);
+            insertLoginLog(list.get(0));
         }
+
         return token;
     }
 
@@ -125,7 +128,7 @@ public class UmsUserManagerServiceImpl implements UmsUserManagerService, UserDet
         umsAdminAuth.setIdentityType(umsUserManagerRegisterParam.getIdentityType());
         umsAdminAuth.setIdentity(umsUserManagerRegisterParam.getIdentity());
         umsAdminAuth.setCertificate(encodedCertificate);
-        umsAdminAuth.setIfVerify(true);
+        umsAdminAuth.setIfVerify(false); //未认证状态
 
         umsAdminAuthMapper.insert(umsAdminAuth);
 
