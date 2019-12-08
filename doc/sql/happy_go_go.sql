@@ -12,9 +12,9 @@ CREATE TABLE `pms_product` (
   `product_name` varchar(100) NOT NULL COMMENT '商品名称',
   `description` text COMMENT '商品描述',
   `create_time` datetime NOT NULL COMMENT '创建时间',
-  `purchase_price` decimal(10,0) NOT NULL COMMENT '商品采购价',
-  `market_price` decimal(10,0) NOT NULL COMMENT '市场价格',
-  `sale_price` decimal(10,0) DEFAULT NULL COMMENT '销售价格',
+  `purchase_price` decimal(10,2) NOT NULL COMMENT '商品采购价',
+  `market_price` decimal(10,2) NOT NULL COMMENT '市场价格',
+  `sale_price` decimal(10,2) DEFAULT NULL COMMENT '销售价格',
   `category_id` int(11) NOT NULL COMMENT '类别ID',
   `icon` text DEFAULT NULL COMMENT '商品图片',
   PRIMARY KEY (`product_id`)

@@ -1,5 +1,6 @@
 package com.m4coding.mallmbg.mbg.model;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -305,52 +306,52 @@ public class PmsProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andPurchasePriceEqualTo(Long value) {
+        public Criteria andPurchasePriceEqualTo(BigDecimal value) {
             addCriterion("purchase_price =", value, "purchasePrice");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasePriceNotEqualTo(Long value) {
+        public Criteria andPurchasePriceNotEqualTo(BigDecimal value) {
             addCriterion("purchase_price <>", value, "purchasePrice");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasePriceGreaterThan(Long value) {
+        public Criteria andPurchasePriceGreaterThan(BigDecimal value) {
             addCriterion("purchase_price >", value, "purchasePrice");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasePriceGreaterThanOrEqualTo(Long value) {
+        public Criteria andPurchasePriceGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("purchase_price >=", value, "purchasePrice");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasePriceLessThan(Long value) {
+        public Criteria andPurchasePriceLessThan(BigDecimal value) {
             addCriterion("purchase_price <", value, "purchasePrice");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasePriceLessThanOrEqualTo(Long value) {
+        public Criteria andPurchasePriceLessThanOrEqualTo(BigDecimal value) {
             addCriterion("purchase_price <=", value, "purchasePrice");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasePriceIn(List<Long> values) {
+        public Criteria andPurchasePriceIn(List<BigDecimal> values) {
             addCriterion("purchase_price in", values, "purchasePrice");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasePriceNotIn(List<Long> values) {
+        public Criteria andPurchasePriceNotIn(List<BigDecimal> values) {
             addCriterion("purchase_price not in", values, "purchasePrice");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasePriceBetween(Long value1, Long value2) {
+        public Criteria andPurchasePriceBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("purchase_price between", value1, value2, "purchasePrice");
             return (Criteria) this;
         }
 
-        public Criteria andPurchasePriceNotBetween(Long value1, Long value2) {
+        public Criteria andPurchasePriceNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("purchase_price not between", value1, value2, "purchasePrice");
             return (Criteria) this;
         }
@@ -365,52 +366,52 @@ public class PmsProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andMarketPriceEqualTo(Long value) {
+        public Criteria andMarketPriceEqualTo(BigDecimal value) {
             addCriterion("market_price =", value, "marketPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMarketPriceNotEqualTo(Long value) {
+        public Criteria andMarketPriceNotEqualTo(BigDecimal value) {
             addCriterion("market_price <>", value, "marketPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMarketPriceGreaterThan(Long value) {
+        public Criteria andMarketPriceGreaterThan(BigDecimal value) {
             addCriterion("market_price >", value, "marketPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMarketPriceGreaterThanOrEqualTo(Long value) {
+        public Criteria andMarketPriceGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("market_price >=", value, "marketPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMarketPriceLessThan(Long value) {
+        public Criteria andMarketPriceLessThan(BigDecimal value) {
             addCriterion("market_price <", value, "marketPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMarketPriceLessThanOrEqualTo(Long value) {
+        public Criteria andMarketPriceLessThanOrEqualTo(BigDecimal value) {
             addCriterion("market_price <=", value, "marketPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMarketPriceIn(List<Long> values) {
+        public Criteria andMarketPriceIn(List<BigDecimal> values) {
             addCriterion("market_price in", values, "marketPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMarketPriceNotIn(List<Long> values) {
+        public Criteria andMarketPriceNotIn(List<BigDecimal> values) {
             addCriterion("market_price not in", values, "marketPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMarketPriceBetween(Long value1, Long value2) {
+        public Criteria andMarketPriceBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("market_price between", value1, value2, "marketPrice");
             return (Criteria) this;
         }
 
-        public Criteria andMarketPriceNotBetween(Long value1, Long value2) {
+        public Criteria andMarketPriceNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("market_price not between", value1, value2, "marketPrice");
             return (Criteria) this;
         }
@@ -425,52 +426,52 @@ public class PmsProductExample {
             return (Criteria) this;
         }
 
-        public Criteria andSalePriceEqualTo(Long value) {
+        public Criteria andSalePriceEqualTo(BigDecimal value) {
             addCriterion("sale_price =", value, "salePrice");
             return (Criteria) this;
         }
 
-        public Criteria andSalePriceNotEqualTo(Long value) {
+        public Criteria andSalePriceNotEqualTo(BigDecimal value) {
             addCriterion("sale_price <>", value, "salePrice");
             return (Criteria) this;
         }
 
-        public Criteria andSalePriceGreaterThan(Long value) {
+        public Criteria andSalePriceGreaterThan(BigDecimal value) {
             addCriterion("sale_price >", value, "salePrice");
             return (Criteria) this;
         }
 
-        public Criteria andSalePriceGreaterThanOrEqualTo(Long value) {
+        public Criteria andSalePriceGreaterThanOrEqualTo(BigDecimal value) {
             addCriterion("sale_price >=", value, "salePrice");
             return (Criteria) this;
         }
 
-        public Criteria andSalePriceLessThan(Long value) {
+        public Criteria andSalePriceLessThan(BigDecimal value) {
             addCriterion("sale_price <", value, "salePrice");
             return (Criteria) this;
         }
 
-        public Criteria andSalePriceLessThanOrEqualTo(Long value) {
+        public Criteria andSalePriceLessThanOrEqualTo(BigDecimal value) {
             addCriterion("sale_price <=", value, "salePrice");
             return (Criteria) this;
         }
 
-        public Criteria andSalePriceIn(List<Long> values) {
+        public Criteria andSalePriceIn(List<BigDecimal> values) {
             addCriterion("sale_price in", values, "salePrice");
             return (Criteria) this;
         }
 
-        public Criteria andSalePriceNotIn(List<Long> values) {
+        public Criteria andSalePriceNotIn(List<BigDecimal> values) {
             addCriterion("sale_price not in", values, "salePrice");
             return (Criteria) this;
         }
 
-        public Criteria andSalePriceBetween(Long value1, Long value2) {
+        public Criteria andSalePriceBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("sale_price between", value1, value2, "salePrice");
             return (Criteria) this;
         }
 
-        public Criteria andSalePriceNotBetween(Long value1, Long value2) {
+        public Criteria andSalePriceNotBetween(BigDecimal value1, BigDecimal value2) {
             addCriterion("sale_price not between", value1, value2, "salePrice");
             return (Criteria) this;
         }

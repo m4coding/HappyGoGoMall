@@ -2,6 +2,7 @@ package com.m4coding.mallmbg.mbg.model;
 
 import io.swagger.annotations.ApiModelProperty;
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Date;
 
 public class PmsProduct implements Serializable {
@@ -15,13 +16,13 @@ public class PmsProduct implements Serializable {
     private Date createTime;
 
     @ApiModelProperty(value = "商品采购价")
-    private Long purchasePrice;
+    private BigDecimal purchasePrice;
 
     @ApiModelProperty(value = "市场价格")
-    private Long marketPrice;
+    private BigDecimal marketPrice;
 
     @ApiModelProperty(value = "销售价格")
-    private Long salePrice;
+    private BigDecimal salePrice;
 
     @ApiModelProperty(value = "类别ID")
     private Integer categoryId;
@@ -58,27 +59,27 @@ public class PmsProduct implements Serializable {
         this.createTime = createTime;
     }
 
-    public Long getPurchasePrice() {
+    public BigDecimal getPurchasePrice() {
         return purchasePrice;
     }
 
-    public void setPurchasePrice(Long purchasePrice) {
+    public void setPurchasePrice(BigDecimal purchasePrice) {
         this.purchasePrice = purchasePrice;
     }
 
-    public Long getMarketPrice() {
+    public BigDecimal getMarketPrice() {
         return marketPrice;
     }
 
-    public void setMarketPrice(Long marketPrice) {
+    public void setMarketPrice(BigDecimal marketPrice) {
         this.marketPrice = marketPrice;
     }
 
-    public Long getSalePrice() {
+    public BigDecimal getSalePrice() {
         return salePrice;
     }
 
-    public void setSalePrice(Long salePrice) {
+    public void setSalePrice(BigDecimal salePrice) {
         this.salePrice = salePrice;
     }
 
