@@ -60,8 +60,31 @@
             <generatedKey column="auth_id" sqlStatement="MySql" identity="true"/>
         </table>
 
-        <table tableName="pms_product">
+        <!--商品中心相关表-->
+        <table tableName="pms_spu">
             <generatedKey column="product_id" sqlStatement="MySql" identity="true"/>
         </table>
+        <table tableName="pms_sku">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="pms_category">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="pms_brand">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="pms_sku_stock">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="pms_sku_attr">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="pms_sku_attr_value">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="pms_spu_sku_attr">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
+
     </context>
 </generatorConfiguration>
