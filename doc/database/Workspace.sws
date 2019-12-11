@@ -4,8 +4,8 @@
 
 <Workspace>
 	<Local Expanded="Yes">
-		<Model Expanded="Yes" ID="{6BF70A96-AD2C-4B18-986D-301F7DD39549}" Name="HappyGoGoMall" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="HappyGoGoMall.pdm"/>
-		<Model Expanded="Yes" ID="{7BB41C87-EFE8-409A-A86E-B1C3FCE34F8C}" Name="mall" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="/work/GoServer/mall-master/document/pdm/mall.pdm"/>
+		<Model Expanded="Yes" ID="{6BF70A96-AD2C-4B18-986D-301F7DD39549}" Name="HappyGoGoMall" Selected="Yes" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="HappyGoGoMall.pdm"/>
+		<Model Expanded="Yes" ID="{7BB41C87-EFE8-409A-A86E-B1C3FCE34F8C}" Loaded="No" Name="mall" Type="{CDE44E21-9669-11D1-9914-006097355D9B}" URL="/work/GoServer/mall-master/document/pdm/mall.pdm"/>
 	</Local>
 	<BrowserModule Name="Repository"/>
 </Workspace>

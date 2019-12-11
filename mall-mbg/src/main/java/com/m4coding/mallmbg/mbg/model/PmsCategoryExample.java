@@ -164,6 +164,66 @@ public class PmsCategoryExample {
             return (Criteria) this;
         }
 
+        public Criteria andPidIsNull() {
+            addCriterion("pid is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidIsNotNull() {
+            addCriterion("pid is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidEqualTo(Long value) {
+            addCriterion("pid =", value, "pid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidNotEqualTo(Long value) {
+            addCriterion("pid <>", value, "pid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidGreaterThan(Long value) {
+            addCriterion("pid >", value, "pid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidGreaterThanOrEqualTo(Long value) {
+            addCriterion("pid >=", value, "pid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidLessThan(Long value) {
+            addCriterion("pid <", value, "pid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidLessThanOrEqualTo(Long value) {
+            addCriterion("pid <=", value, "pid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidIn(List<Long> values) {
+            addCriterion("pid in", values, "pid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidNotIn(List<Long> values) {
+            addCriterion("pid not in", values, "pid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidBetween(Long value1, Long value2) {
+            addCriterion("pid between", value1, value2, "pid");
+            return (Criteria) this;
+        }
+
+        public Criteria andPidNotBetween(Long value1, Long value2) {
+            addCriterion("pid not between", value1, value2, "pid");
+            return (Criteria) this;
+        }
+
         public Criteria andCategoryNameIsNull() {
             addCriterion("category_name is null");
             return (Criteria) this;
@@ -231,6 +291,146 @@ public class PmsCategoryExample {
 
         public Criteria andCategoryNameNotBetween(String value1, String value2) {
             addCriterion("category_name not between", value1, value2, "categoryName");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdIsNull() {
+            addCriterion("child_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdIsNotNull() {
+            addCriterion("child_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdEqualTo(String value) {
+            addCriterion("child_id =", value, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdNotEqualTo(String value) {
+            addCriterion("child_id <>", value, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdGreaterThan(String value) {
+            addCriterion("child_id >", value, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdGreaterThanOrEqualTo(String value) {
+            addCriterion("child_id >=", value, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdLessThan(String value) {
+            addCriterion("child_id <", value, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdLessThanOrEqualTo(String value) {
+            addCriterion("child_id <=", value, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdLike(String value) {
+            addCriterion("child_id like", value, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdNotLike(String value) {
+            addCriterion("child_id not like", value, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdIn(List<String> values) {
+            addCriterion("child_id in", values, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdNotIn(List<String> values) {
+            addCriterion("child_id not in", values, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdBetween(String value1, String value2) {
+            addCriterion("child_id between", value1, value2, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andChildIdNotBetween(String value1, String value2) {
+            addCriterion("child_id not between", value1, value2, "childId");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIsNull() {
+            addCriterion("description is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIsNotNull() {
+            addCriterion("description is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionEqualTo(String value) {
+            addCriterion("description =", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotEqualTo(String value) {
+            addCriterion("description <>", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThan(String value) {
+            addCriterion("description >", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionGreaterThanOrEqualTo(String value) {
+            addCriterion("description >=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThan(String value) {
+            addCriterion("description <", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLessThanOrEqualTo(String value) {
+            addCriterion("description <=", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionLike(String value) {
+            addCriterion("description like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotLike(String value) {
+            addCriterion("description not like", value, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionIn(List<String> values) {
+            addCriterion("description in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotIn(List<String> values) {
+            addCriterion("description not in", values, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionBetween(String value1, String value2) {
+            addCriterion("description between", value1, value2, "description");
+            return (Criteria) this;
+        }
+
+        public Criteria andDescriptionNotBetween(String value1, String value2) {
+            addCriterion("description not between", value1, value2, "description");
             return (Criteria) this;
         }
 
