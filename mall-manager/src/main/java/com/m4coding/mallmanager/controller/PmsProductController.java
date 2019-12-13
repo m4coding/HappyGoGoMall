@@ -119,13 +119,7 @@ public class PmsProductController {
     @ApiOperation(value = "查询商品，分页查询")
     @ApiVersion(1)
     @PostMapping("/{version}/getProductList")
-    public CommonResult<CommonPage<ListProductResult>> getList(@Valid @RequestBody PmsProductQueryParam pmsProductQueryParam, BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            FieldError fieldError = (FieldError) bindingResult.getAllErrors().get(0);
-            return CommonResult.failed(fieldError.getDefaultMessage());
-        }
-
+    public CommonResult<CommonPage<ListProductResult>> getList(@RequestBody PmsProductQueryParam pmsProductQueryParam, BindingResult bindingResult) {
         List<ListProductResult> list = pmsProductService.getList(pmsProductQueryParam,
                 pmsProductQueryParam.getPageSize(), pmsProductQueryParam.getPageNum());
         return CommonResult.success(CommonPage.restPage(list));
