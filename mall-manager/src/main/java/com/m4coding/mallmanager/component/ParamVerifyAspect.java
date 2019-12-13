@@ -12,6 +12,7 @@ import org.springframework.validation.FieldError;
 
 /**
  * 接口入参检验切面
+ * 针对参数中添加@Vaild注解与BindingResult
  */
 @Aspect
 @Component

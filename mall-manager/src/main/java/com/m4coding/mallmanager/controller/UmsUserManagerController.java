@@ -44,12 +44,6 @@ public class UmsUserManagerController {
     @ApiVersion
     @PostMapping(value = "/{version}/login")
     public CommonResult login(@Valid @RequestBody UmsUserManagerLoginParam loginParam, BindingResult bindingResult) {
-        //判断各个入参是否符合条件
-        if (bindingResult.hasErrors()) {
-            FieldError error = (FieldError) bindingResult.getAllErrors().get(0);
-            return CommonResult.validateFailed(error.getDefaultMessage());
-        }
-
         String token = null;
         String errorMsg = "用户名或密码错误";
         try {
@@ -75,11 +69,6 @@ public class UmsUserManagerController {
     @RequestMapping(value = "{version}/register", method = RequestMethod.POST)
     public CommonResult<UmsAdmin> register(@Valid @RequestBody UmsUserManagerRegisterParam umsUserManagerRegisterParam,
                                            BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            FieldError fieldError = (FieldError) bindingResult.getAllErrors().get(0);
-            return CommonResult.validateFailed(fieldError.getDefaultMessage());
-        }
-
         UmsAdmin umsAdmin = umsUserManagerService.register(umsUserManagerRegisterParam);
 
         if (null == umsAdmin) {
