@@ -25,7 +25,7 @@ import java.util.Map;
 /**
  * 后台用户管理控制器
  */
-@Api(tags = "管理员相关")
+@Api(tags = "UmsUserManagerController", description = "管理员相关")
 @RestController
 @RequestMapping("api/admin")
 public class UmsUserManagerController {

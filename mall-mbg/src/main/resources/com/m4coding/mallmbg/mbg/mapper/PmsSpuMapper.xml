@@ -8,6 +8,7 @@
     <result column="update_time" jdbcType="INTEGER" property="updateTime" />
     <result column="category_id" jdbcType="BIGINT" property="categoryId" />
     <result column="brand_id" jdbcType="BIGINT" property="brandId" />
+    <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.m4coding.mallmbg.mbg.model.PmsSpu">
     <result column="description" jdbcType="LONGVARCHAR" property="description" />
@@ -73,7 +74,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    product_id, product_name, create_time, update_time, category_id, brand_id
+    product_id, product_name, create_time, update_time, category_id, brand_id, status
   </sql>
   <sql id="Blob_Column_List">
     description, banner_url, main_url
@@ -131,11 +132,13 @@
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into pms_spu (product_name, create_time, update_time, 
-      category_id, brand_id, description, 
-      banner_url, main_url)
+      category_id, brand_id, status, 
+      description, banner_url, main_url
+      )
     values (#{productName,jdbcType=VARCHAR}, #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER}, 
-      #{categoryId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{description,jdbcType=LONGVARCHAR}, 
-      #{bannerUrl,jdbcType=LONGVARCHAR}, #{mainUrl,jdbcType=LONGVARCHAR})
+      #{categoryId,jdbcType=BIGINT}, #{brandId,jdbcType=BIGINT}, #{status,jdbcType=TINYINT}, 
+      #{description,jdbcType=LONGVARCHAR}, #{bannerUrl,jdbcType=LONGVARCHAR}, #{mainUrl,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.m4coding.mallmbg.mbg.model.PmsSpu">
     <selectKey keyProperty="productId" order="AFTER" resultType="java.lang.Long">
@@ -157,6 +160,9 @@
       </if>
       <if test="brandId != null">
         brand_id,
+      </if>
+      <if test="status != null">
+        status,
       </if>
       <if test="description != null">
         description,
@@ -183,6 +189,9 @@
       </if>
       <if test="brandId != null">
         #{brandId,jdbcType=BIGINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
       </if>
       <if test="description != null">
         #{description,jdbcType=LONGVARCHAR},
@@ -222,6 +231,9 @@
       <if test="record.brandId != null">
         brand_id = #{record.brandId,jdbcType=BIGINT},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
       <if test="record.description != null">
         description = #{record.description,jdbcType=LONGVARCHAR},
       </if>
@@ -244,6 +256,7 @@
       update_time = #{record.updateTime,jdbcType=INTEGER},
       category_id = #{record.categoryId,jdbcType=BIGINT},
       brand_id = #{record.brandId,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=TINYINT},
       description = #{record.description,jdbcType=LONGVARCHAR},
       banner_url = #{record.bannerUrl,jdbcType=LONGVARCHAR},
       main_url = #{record.mainUrl,jdbcType=LONGVARCHAR}
@@ -258,7 +271,8 @@
       create_time = #{record.createTime,jdbcType=INTEGER},
       update_time = #{record.updateTime,jdbcType=INTEGER},
       category_id = #{record.categoryId,jdbcType=BIGINT},
-      brand_id = #{record.brandId,jdbcType=BIGINT}
+      brand_id = #{record.brandId,jdbcType=BIGINT},
+      status = #{record.status,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -281,6 +295,9 @@
       <if test="brandId != null">
         brand_id = #{brandId,jdbcType=BIGINT},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
       <if test="description != null">
         description = #{description,jdbcType=LONGVARCHAR},
       </if>
@@ -300,6 +317,7 @@
       update_time = #{updateTime,jdbcType=INTEGER},
       category_id = #{categoryId,jdbcType=BIGINT},
       brand_id = #{brandId,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT},
       description = #{description,jdbcType=LONGVARCHAR},
       banner_url = #{bannerUrl,jdbcType=LONGVARCHAR},
       main_url = #{mainUrl,jdbcType=LONGVARCHAR}
@@ -311,7 +329,8 @@
       create_time = #{createTime,jdbcType=INTEGER},
       update_time = #{updateTime,jdbcType=INTEGER},
       category_id = #{categoryId,jdbcType=BIGINT},
-      brand_id = #{brandId,jdbcType=BIGINT}
+      brand_id = #{brandId,jdbcType=BIGINT},
+      status = #{status,jdbcType=TINYINT}
     where product_id = #{productId,jdbcType=BIGINT}
   </update>
 </mapper>

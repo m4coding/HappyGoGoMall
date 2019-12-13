@@ -9,9 +9,12 @@
     <result column="purchase_price" jdbcType="DECIMAL" property="purchasePrice" />
     <result column="sale_price" jdbcType="DECIMAL" property="salePrice" />
     <result column="market_price" jdbcType="DECIMAL" property="marketPrice" />
+    <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.m4coding.mallmbg.mbg.model.PmsSku">
     <result column="attrs" jdbcType="LONGVARCHAR" property="attrs" />
+    <result column="banner_url" jdbcType="LONGVARCHAR" property="bannerUrl" />
+    <result column="main_url" jdbcType="LONGVARCHAR" property="mainUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,10 +75,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, spu_id, update_time, create_time, purchase_price, sale_price, market_price
+    id, spu_id, update_time, create_time, purchase_price, sale_price, market_price, status
   </sql>
   <sql id="Blob_Column_List">
-    attrs
+    attrs, banner_url, main_url
   </sql>
   <select id="selectByExampleWithBLOBs" parameterType="com.m4coding.mallmbg.mbg.model.PmsSkuExample" resultMap="ResultMapWithBLOBs">
     select
@@ -131,10 +134,12 @@
     </selectKey>
     insert into pms_sku (spu_id, update_time, create_time, 
       purchase_price, sale_price, market_price, 
-      attrs)
+      status, attrs, banner_url, 
+      main_url)
     values (#{spuId,jdbcType=BIGINT}, #{updateTime,jdbcType=INTEGER}, #{createTime,jdbcType=INTEGER}, 
       #{purchasePrice,jdbcType=DECIMAL}, #{salePrice,jdbcType=DECIMAL}, #{marketPrice,jdbcType=DECIMAL}, 
-      #{attrs,jdbcType=LONGVARCHAR})
+      #{status,jdbcType=TINYINT}, #{attrs,jdbcType=LONGVARCHAR}, #{bannerUrl,jdbcType=LONGVARCHAR}, 
+      #{mainUrl,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.m4coding.mallmbg.mbg.model.PmsSku">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -160,8 +165,17 @@
       <if test="marketPrice != null">
         market_price,
       </if>
+      <if test="status != null">
+        status,
+      </if>
       <if test="attrs != null">
         attrs,
+      </if>
+      <if test="bannerUrl != null">
+        banner_url,
+      </if>
+      <if test="mainUrl != null">
+        main_url,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -183,8 +197,17 @@
       <if test="marketPrice != null">
         #{marketPrice,jdbcType=DECIMAL},
       </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
       <if test="attrs != null">
         #{attrs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bannerUrl != null">
+        #{bannerUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mainUrl != null">
+        #{mainUrl,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -218,8 +241,17 @@
       <if test="record.marketPrice != null">
         market_price = #{record.marketPrice,jdbcType=DECIMAL},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
       <if test="record.attrs != null">
         attrs = #{record.attrs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.bannerUrl != null">
+        banner_url = #{record.bannerUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.mainUrl != null">
+        main_url = #{record.mainUrl,jdbcType=LONGVARCHAR},
       </if>
     </set>
     <if test="_parameter != null">
@@ -235,7 +267,10 @@
       purchase_price = #{record.purchasePrice,jdbcType=DECIMAL},
       sale_price = #{record.salePrice,jdbcType=DECIMAL},
       market_price = #{record.marketPrice,jdbcType=DECIMAL},
-      attrs = #{record.attrs,jdbcType=LONGVARCHAR}
+      status = #{record.status,jdbcType=TINYINT},
+      attrs = #{record.attrs,jdbcType=LONGVARCHAR},
+      banner_url = #{record.bannerUrl,jdbcType=LONGVARCHAR},
+      main_url = #{record.mainUrl,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -248,7 +283,8 @@
       create_time = #{record.createTime,jdbcType=INTEGER},
       purchase_price = #{record.purchasePrice,jdbcType=DECIMAL},
       sale_price = #{record.salePrice,jdbcType=DECIMAL},
-      market_price = #{record.marketPrice,jdbcType=DECIMAL}
+      market_price = #{record.marketPrice,jdbcType=DECIMAL},
+      status = #{record.status,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -274,8 +310,17 @@
       <if test="marketPrice != null">
         market_price = #{marketPrice,jdbcType=DECIMAL},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
       <if test="attrs != null">
         attrs = #{attrs,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="bannerUrl != null">
+        banner_url = #{bannerUrl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mainUrl != null">
+        main_url = #{mainUrl,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
@@ -288,7 +333,10 @@
       purchase_price = #{purchasePrice,jdbcType=DECIMAL},
       sale_price = #{salePrice,jdbcType=DECIMAL},
       market_price = #{marketPrice,jdbcType=DECIMAL},
-      attrs = #{attrs,jdbcType=LONGVARCHAR}
+      status = #{status,jdbcType=TINYINT},
+      attrs = #{attrs,jdbcType=LONGVARCHAR},
+      banner_url = #{bannerUrl,jdbcType=LONGVARCHAR},
+      main_url = #{mainUrl,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.m4coding.mallmbg.mbg.model.PmsSku">
@@ -298,7 +346,8 @@
       create_time = #{createTime,jdbcType=INTEGER},
       purchase_price = #{purchasePrice,jdbcType=DECIMAL},
       sale_price = #{salePrice,jdbcType=DECIMAL},
-      market_price = #{marketPrice,jdbcType=DECIMAL}
+      market_price = #{marketPrice,jdbcType=DECIMAL},
+      status = #{status,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

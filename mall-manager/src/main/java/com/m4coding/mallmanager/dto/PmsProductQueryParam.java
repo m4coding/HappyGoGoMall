@@ -1,0 +1,49 @@
+package com.m4coding.mallmanager.dto;
+
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
+import javax.validation.constraints.PositiveOrZero;
+
+/**
+ * 产品查询参数
+ */
+public class PmsProductQueryParam {
+    @ApiModelProperty("商品名称模糊关键字")
+    private String keyword;
+
+    @ApiModelProperty(value = "每页数目", required = true)
+    @NotNull(message = "每页数目不能为空")
+    @Positive(message = "每页数目不能小于0")
+    private Integer pageSize;
+
+    @ApiModelProperty(value = "页码", required = true)
+    @NotNull(message = "页码不能为空")
+    @Positive(message = "页码不能小于0")
+    private Integer pageNum;
+
+    public String getKeyword() {
+        return keyword;
+    }
+
+    public void setKeyword(String keyword) {
+        this.keyword = keyword;
+    }
+
+    public Integer getPageSize() {
+        return pageSize;
+    }
+
+    public void setPageSize(Integer pageSize) {
+        this.pageSize = pageSize;
+    }
+
+    public Integer getPageNum() {
+        return pageNum;
+    }
+
+    public void setPageNum(Integer pageNum) {
+        this.pageNum = pageNum;
+    }
+}

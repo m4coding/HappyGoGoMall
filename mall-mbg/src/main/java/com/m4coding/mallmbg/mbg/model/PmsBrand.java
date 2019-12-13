@@ -9,6 +9,9 @@ public class PmsBrand implements Serializable {
     @ApiModelProperty(value = "品牌名称")
     private String brandName;
 
+    @ApiModelProperty(value = "状态 1:enable, 0:disable, -1:deleted")
+    private Integer status;
+
     @ApiModelProperty(value = "创建时间")
     private Integer createTime;
 
@@ -31,6 +34,14 @@ public class PmsBrand implements Serializable {
 
     public void setBrandName(String brandName) {
         this.brandName = brandName;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
     }
 
     public Integer getCreateTime() {
@@ -57,6 +68,7 @@ public class PmsBrand implements Serializable {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", brandName=").append(brandName);
+        sb.append(", status=").append(status);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", serialVersionUID=").append(serialVersionUID);

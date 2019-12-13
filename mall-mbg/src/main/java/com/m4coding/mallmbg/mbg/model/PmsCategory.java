@@ -25,6 +25,9 @@ public class PmsCategory implements Serializable {
     @ApiModelProperty(value = "更新时间")
     private Integer updateTime;
 
+    @ApiModelProperty(value = "状态 1:enable, 0:disable, -1:deleted")
+    private Integer status;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -83,6 +86,14 @@ public class PmsCategory implements Serializable {
         this.updateTime = updateTime;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -96,6 +107,7 @@ public class PmsCategory implements Serializable {
         sb.append(", description=").append(description);
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
+        sb.append(", status=").append(status);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

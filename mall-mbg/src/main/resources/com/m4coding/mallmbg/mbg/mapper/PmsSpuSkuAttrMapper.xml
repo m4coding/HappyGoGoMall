@@ -11,6 +11,7 @@
     <result column="attr_value_name" jdbcType="VARCHAR" property="attrValueName" />
     <result column="create_time" jdbcType="INTEGER" property="createTime" />
     <result column="update_time" jdbcType="INTEGER" property="updateTime" />
+    <result column="status" jdbcType="TINYINT" property="status" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -72,7 +73,7 @@
   </sql>
   <sql id="Base_Column_List">
     id, spu_id, sku_id, attr_id, attr_name, attr_value_id, attr_value_name, create_time, 
-    update_time
+    update_time, status
   </sql>
   <select id="selectByExample" parameterType="com.m4coding.mallmbg.mbg.model.PmsSpuSkuAttrExample" resultMap="BaseResultMap">
     select
@@ -110,10 +111,12 @@
     </selectKey>
     insert into pms_spu_sku_attr (spu_id, sku_id, attr_id, 
       attr_name, attr_value_id, attr_value_name, 
-      create_time, update_time)
+      create_time, update_time, status
+      )
     values (#{spuId,jdbcType=BIGINT}, #{skuId,jdbcType=BIGINT}, #{attrId,jdbcType=BIGINT}, 
       #{attrName,jdbcType=VARCHAR}, #{attrValueId,jdbcType=BIGINT}, #{attrValueName,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER})
+      #{createTime,jdbcType=INTEGER}, #{updateTime,jdbcType=INTEGER}, #{status,jdbcType=TINYINT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.m4coding.mallmbg.mbg.model.PmsSpuSkuAttr">
     <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
@@ -145,6 +148,9 @@
       <if test="updateTime != null">
         update_time,
       </if>
+      <if test="status != null">
+        status,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="spuId != null">
@@ -170,6 +176,9 @@
       </if>
       <if test="updateTime != null">
         #{updateTime,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
       </if>
     </trim>
   </insert>
@@ -209,6 +218,9 @@
       <if test="record.updateTime != null">
         update_time = #{record.updateTime,jdbcType=INTEGER},
       </if>
+      <if test="record.status != null">
+        status = #{record.status,jdbcType=TINYINT},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -224,7 +236,8 @@
       attr_value_id = #{record.attrValueId,jdbcType=BIGINT},
       attr_value_name = #{record.attrValueName,jdbcType=VARCHAR},
       create_time = #{record.createTime,jdbcType=INTEGER},
-      update_time = #{record.updateTime,jdbcType=INTEGER}
+      update_time = #{record.updateTime,jdbcType=INTEGER},
+      status = #{record.status,jdbcType=TINYINT}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -256,6 +269,9 @@
       <if test="updateTime != null">
         update_time = #{updateTime,jdbcType=INTEGER},
       </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
@@ -268,7 +284,8 @@
       attr_value_id = #{attrValueId,jdbcType=BIGINT},
       attr_value_name = #{attrValueName,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=INTEGER},
-      update_time = #{updateTime,jdbcType=INTEGER}
+      update_time = #{updateTime,jdbcType=INTEGER},
+      status = #{status,jdbcType=TINYINT}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

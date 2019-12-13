@@ -25,8 +25,17 @@ public class PmsSku implements Serializable {
     @ApiModelProperty(value = "市场价格")
     private BigDecimal marketPrice;
 
+    @ApiModelProperty(value = "状态 1:enable, 0:disable, -1:deleted")
+    private Integer status;
+
     @ApiModelProperty(value = "销售属性值{attr_value_id}-{attr_value_id} 多个销售属性值逗号分隔")
     private String attrs;
+
+    @ApiModelProperty(value = "banner图片 多个图片逗号分隔")
+    private String bannerUrl;
+
+    @ApiModelProperty(value = "商品介绍主图 多个图片逗号分隔")
+    private String mainUrl;
 
     private static final long serialVersionUID = 1L;
 
@@ -86,12 +95,36 @@ public class PmsSku implements Serializable {
         this.marketPrice = marketPrice;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public String getAttrs() {
         return attrs;
     }
 
     public void setAttrs(String attrs) {
         this.attrs = attrs;
+    }
+
+    public String getBannerUrl() {
+        return bannerUrl;
+    }
+
+    public void setBannerUrl(String bannerUrl) {
+        this.bannerUrl = bannerUrl;
+    }
+
+    public String getMainUrl() {
+        return mainUrl;
+    }
+
+    public void setMainUrl(String mainUrl) {
+        this.mainUrl = mainUrl;
     }
 
     @Override
@@ -107,7 +140,10 @@ public class PmsSku implements Serializable {
         sb.append(", purchasePrice=").append(purchasePrice);
         sb.append(", salePrice=").append(salePrice);
         sb.append(", marketPrice=").append(marketPrice);
+        sb.append(", status=").append(status);
         sb.append(", attrs=").append(attrs);
+        sb.append(", bannerUrl=").append(bannerUrl);
+        sb.append(", mainUrl=").append(mainUrl);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

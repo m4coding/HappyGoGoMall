@@ -22,6 +22,9 @@ public class PmsSpu implements Serializable {
     @ApiModelProperty(value = "品牌id")
     private Long brandId;
 
+    @ApiModelProperty(value = "状态 1:enable, 0:disable, -1:deleted")
+    private Integer status;
+
     @ApiModelProperty(value = "商品描述")
     private String description;
 
@@ -81,6 +84,14 @@ public class PmsSpu implements Serializable {
         this.brandId = brandId;
     }
 
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
     public String getDescription() {
         return description;
     }
@@ -117,6 +128,7 @@ public class PmsSpu implements Serializable {
         sb.append(", updateTime=").append(updateTime);
         sb.append(", categoryId=").append(categoryId);
         sb.append(", brandId=").append(brandId);
+        sb.append(", status=").append(status);
         sb.append(", description=").append(description);
         sb.append(", bannerUrl=").append(bannerUrl);
         sb.append(", mainUrl=").append(mainUrl);
