@@ -9,6 +9,7 @@ import com.m4coding.mallbase.version.ApiVersion;
 import com.m4coding.mallmbg.mbg.model.UmsAdmin;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ import java.util.Map;
  */
 @Api(tags = "UmsUserManagerController", description = "管理员相关")
 @RestController
-@RequestMapping("api/admin")
+@RequestMapping("api/admin/{version}")
 public class UmsUserManagerController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UmsUserManagerController.class);
@@ -41,9 +42,11 @@ public class UmsUserManagerController {
 
 
     @ApiOperation(value = "登录，成功后会返回token")
-    @ApiVersion
-    @PostMapping(value = "/{version}/login")
-    public CommonResult login(@Valid @RequestBody UmsUserManagerLoginParam loginParam, BindingResult bindingResult) {
+    @ApiVersion(1)
+    @PostMapping(value = "/login")
+    public CommonResult login(@ApiParam(value = "版本号", allowableValues = "v1", required = true)
+                              @PathVariable(value = "version") String version,
+                              @Valid @RequestBody UmsUserManagerLoginParam loginParam, BindingResult bindingResult) {
         String token = null;
         String errorMsg = "用户名或密码错误";
         try {
@@ -66,8 +69,10 @@ public class UmsUserManagerController {
 
     @ApiOperation(value = "注册管理员")
     @ApiVersion(1)
-    @RequestMapping(value = "{version}/register", method = RequestMethod.POST)
-    public CommonResult<UmsAdmin> register(@Valid @RequestBody UmsUserManagerRegisterParam umsUserManagerRegisterParam,
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    public CommonResult<UmsAdmin> register(@ApiParam(value = "版本号", allowableValues = "v1", required = true)
+                                           @PathVariable(value = "version") String version,
+                                           @Valid @RequestBody UmsUserManagerRegisterParam umsUserManagerRegisterParam,
                                            BindingResult bindingResult) {
         UmsAdmin umsAdmin = umsUserManagerService.register(umsUserManagerRegisterParam);
 
