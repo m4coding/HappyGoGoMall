@@ -4,13 +4,12 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
-import javax.validation.constraints.PositiveOrZero;
 
 /**
  * 产品查询参数
  */
 public class PmsProductQueryParam {
-    @ApiModelProperty("商品名称模糊关键字")
+    @ApiModelProperty(value = "商品名称模糊关键字,不填或者空字符串则表示搜索全部")
     private String keyword;
 
     @ApiModelProperty(value = "每页数目", required = true)

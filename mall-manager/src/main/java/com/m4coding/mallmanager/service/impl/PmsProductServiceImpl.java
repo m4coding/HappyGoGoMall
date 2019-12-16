@@ -244,64 +244,63 @@ public class PmsProductServiceImpl implements PmsProductService {
         PmsSpuExample.Criteria criteria = pmsSpuExample.createCriteria();
 
         //名称模糊搜索
-        if (!StrUtil.isEmpty(pmsProductQueryParam.getKeyword())) {
-            criteria.andProductNameLike("%" + pmsProductQueryParam.getKeyword() + "%");
-            List<PmsSpu> spuList = pmsSpuMapper.selectByExample(pmsSpuExample);
-            for (PmsSpu pmsSpu : spuList) {
-                PmsSkuExample pmsSkuExample = new PmsSkuExample();
-                pmsSkuExample.createCriteria().andSpuIdEqualTo(pmsSpu.getProductId());
-                List<PmsSku> skuList = pmsSkuMapper.selectByExample(pmsSkuExample);
-                for (PmsSku pmsSku : skuList) {
+        String keyWord = StrUtil.isEmpty(pmsProductQueryParam.getKeyword()) ? "" : pmsProductQueryParam.getKeyword();
+        criteria.andProductNameLike("%" + keyWord + "%");
+        List<PmsSpu> spuList = pmsSpuMapper.selectByExample(pmsSpuExample);
+        for (PmsSpu pmsSpu : spuList) {
+            PmsSkuExample pmsSkuExample = new PmsSkuExample();
+            pmsSkuExample.createCriteria().andSpuIdEqualTo(pmsSpu.getProductId());
+            List<PmsSku> skuList = pmsSkuMapper.selectByExample(pmsSkuExample);
+            for (PmsSku pmsSku : skuList) {
 
-                    ListProductResult listProductResult = new ListProductResult();
+                ListProductResult listProductResult = new ListProductResult();
 
-                    //名牌名
-                    PmsBrandExample pmsBrandExample = new PmsBrandExample();
-                    pmsBrandExample.createCriteria().andIdEqualTo(pmsSpu.getBrandId());
-                    List<PmsBrand> pmsBrandList = pmsBrandMapper.selectByExample(pmsBrandExample);
-                    if (!CollectionUtil.isEmpty(pmsBrandList)) {
-                        listProductResult.setBrandName(pmsBrandList.get(0).getBrandName());
-                    }
-
-                    //分类名称
-                    PmsCategoryExample pmsCategoryExample = new PmsCategoryExample();
-                    pmsCategoryExample.createCriteria().andIdEqualTo(pmsSpu.getCategoryId());
-                    List<PmsCategory> pmsCategoryList = pmsCategoryMapper.selectByExample(pmsCategoryExample);
-                    if (!CollectionUtil.isEmpty(pmsCategoryList)) {
-                        listProductResult.setCategoryName(pmsCategoryList.get(0).getCategoryName());
-                    }
-
-                    //库存量
-                    PmsSkuStockExample pmsSkuStockExample = new PmsSkuStockExample();
-                    pmsSkuStockExample.createCriteria().andSkuIdEqualTo(pmsSku.getId().intValue());
-                    List<PmsSkuStock> stockList = pmsSkuStockMapper.selectByExample(pmsSkuStockExample);
-                    if (!CollectionUtil.isEmpty(stockList)) {
-                        listProductResult.setStock(stockList.get(0).getQuantity().longValue());
-                    }
-
-                    //市场价、销售价
-                    listProductResult.setMarketPrice(pmsSku.getMarketPrice());
-                    listProductResult.setSalePrice(pmsSku.getSalePrice());
-
-                    //商品图
-                    listProductResult.setBannerPicList(StrUtil.splitTrim(pmsSku.getBannerUrl(), ","));
-
-                    //商品名称
-                    StringBuilder productNameBuilder = new StringBuilder(pmsSpu.getProductName());
-                    PmsSpuSkuAttrExample pmsSpuSkuAttrExample = new PmsSpuSkuAttrExample();
-                    pmsSpuSkuAttrExample.createCriteria().andSkuIdEqualTo(pmsSku.getId());
-                    List<PmsSpuSkuAttr> pmsSpuSkuAttrList = pmsSpuSkuAttrMapper.selectByExample(pmsSpuSkuAttrExample);
-                    if (!CollectionUtil.isEmpty(pmsSpuSkuAttrList)) {
-                        for (PmsSpuSkuAttr pmsSpuSkuAttr : pmsSpuSkuAttrList) {
-                            productNameBuilder.append(" ")
-                                    .append(pmsSpuSkuAttr.getAttrValueName());
-                        }
-                    }
-                    listProductResult.setName(productNameBuilder.toString());
-
-                    //加入list
-                    resultList.add(listProductResult);
+                //名牌名
+                PmsBrandExample pmsBrandExample = new PmsBrandExample();
+                pmsBrandExample.createCriteria().andIdEqualTo(pmsSpu.getBrandId());
+                List<PmsBrand> pmsBrandList = pmsBrandMapper.selectByExample(pmsBrandExample);
+                if (!CollectionUtil.isEmpty(pmsBrandList)) {
+                    listProductResult.setBrandName(pmsBrandList.get(0).getBrandName());
                 }
+
+                //分类名称
+                PmsCategoryExample pmsCategoryExample = new PmsCategoryExample();
+                pmsCategoryExample.createCriteria().andIdEqualTo(pmsSpu.getCategoryId());
+                List<PmsCategory> pmsCategoryList = pmsCategoryMapper.selectByExample(pmsCategoryExample);
+                if (!CollectionUtil.isEmpty(pmsCategoryList)) {
+                    listProductResult.setCategoryName(pmsCategoryList.get(0).getCategoryName());
+                }
+
+                //库存量
+                PmsSkuStockExample pmsSkuStockExample = new PmsSkuStockExample();
+                pmsSkuStockExample.createCriteria().andSkuIdEqualTo(pmsSku.getId().intValue());
+                List<PmsSkuStock> stockList = pmsSkuStockMapper.selectByExample(pmsSkuStockExample);
+                if (!CollectionUtil.isEmpty(stockList)) {
+                    listProductResult.setStock(stockList.get(0).getQuantity().longValue());
+                }
+
+                //市场价、销售价
+                listProductResult.setMarketPrice(pmsSku.getMarketPrice());
+                listProductResult.setSalePrice(pmsSku.getSalePrice());
+
+                //商品图
+                listProductResult.setBannerPicList(StrUtil.splitTrim(pmsSku.getBannerUrl(), ","));
+
+                //商品名称
+                StringBuilder productNameBuilder = new StringBuilder(pmsSpu.getProductName());
+                PmsSpuSkuAttrExample pmsSpuSkuAttrExample = new PmsSpuSkuAttrExample();
+                pmsSpuSkuAttrExample.createCriteria().andSkuIdEqualTo(pmsSku.getId());
+                List<PmsSpuSkuAttr> pmsSpuSkuAttrList = pmsSpuSkuAttrMapper.selectByExample(pmsSpuSkuAttrExample);
+                if (!CollectionUtil.isEmpty(pmsSpuSkuAttrList)) {
+                    for (PmsSpuSkuAttr pmsSpuSkuAttr : pmsSpuSkuAttrList) {
+                        productNameBuilder.append(" ")
+                                .append(pmsSpuSkuAttr.getAttrValueName());
+                    }
+                }
+                listProductResult.setName(productNameBuilder.toString());
+
+                //加入list
+                resultList.add(listProductResult);
             }
         }
 
