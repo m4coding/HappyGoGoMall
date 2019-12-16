@@ -317,19 +317,46 @@ public class PmsProductServiceImpl implements PmsProductService {
 
         //名称模糊搜索
         String keyWord = StrUtil.isEmpty(pmsProductCategoryQueryParam.getKeyword()) ? "" : pmsProductCategoryQueryParam.getKeyword();
-        criteria.andCategoryNameLike("%" + keyWord + "%");
+        criteria.andCategoryNameLike("%" + keyWord + "%")
+                .andPidEqualTo(0L);
         Page page = PageHelper.startPage(pageNum, pageSize);
         List<PmsCategory> categoryList = pmsCategoryMapper.selectByExample(pmsCategoryExample);
         for (PmsCategory pmsCategory : categoryList) {
-                ListProductCategoryResult listProductCategoryResult = new ListProductCategoryResult();
-                listProductCategoryResult.setName(pmsCategory.getCategoryName());
-                listProductCategoryResult.setCategoryId(pmsCategory.getId());
                 //加入list
-                resultList.add(listProductCategoryResult);
+                resultList.add(getChildCategory(pmsCategory));
         }
 
         return CommonPage.restPage(page, resultList);
     }
+
+    private ListProductCategoryResult getChildCategory(PmsCategory pmsCategory) {
+        ListProductCategoryResult listProductCategoryResult = new ListProductCategoryResult();
+        listProductCategoryResult.setName(pmsCategory.getCategoryName());
+        listProductCategoryResult.setCategoryId(pmsCategory.getId());
+
+        List<String> childIdList = StrUtil.splitTrim(pmsCategory.getChildId(), ",");
+        if (!CollectionUtil.isEmpty(childIdList)) {
+            List<Long> childIdLongList = new ArrayList<>();
+            for (String childIdStr : childIdList) {
+                childIdLongList.add(Long.parseLong(childIdStr));
+            }
+            PmsCategoryExample pmsCategoryExample = new PmsCategoryExample();
+            PmsCategoryExample.Criteria criteria = pmsCategoryExample.createCriteria();
+            criteria.andIdIn(childIdLongList);
+
+            List<PmsCategory> list = pmsCategoryMapper.selectByExample(pmsCategoryExample);
+            if (!CollectionUtil.isEmpty(list)) {
+                listProductCategoryResult.setChildCategoryList(new ArrayList<>());
+                for (PmsCategory pmsCategory1 : list) {
+                    ListProductCategoryResult temp = getChildCategory(pmsCategory1);
+                    listProductCategoryResult.getChildCategoryList().add(temp);
+                }
+            }
+        }
+
+        return listProductCategoryResult;
+    }
+
 
     @Override
     public int batchUpdateSpuStatus(List<Long> ids, Integer status) {

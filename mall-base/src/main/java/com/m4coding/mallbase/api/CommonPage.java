@@ -1,6 +1,7 @@
 package com.m4coding.mallbase.api;
 
 import com.github.pagehelper.Page;
+import io.swagger.annotations.ApiModelProperty;
 
 import java.util.List;
 
@@ -8,10 +9,16 @@ import java.util.List;
  * 分页数据封装类
  */
 public class CommonPage<T> {
+    @ApiModelProperty(value = "当前页数")
     private Integer pageNum;
+    @ApiModelProperty(value = "每页数量大小")
     private Integer pageSize;
+    @ApiModelProperty(value = "总页数")
     private Integer totalPage;
+    @ApiModelProperty(value = "所有数量大小")
     private Long total;
+
+    @ApiModelProperty(value = "返回的页数据列表")
     private List<T> list;
 
     /**
