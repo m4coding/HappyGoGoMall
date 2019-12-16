@@ -1,6 +1,6 @@
 package com.m4coding.mallbase.api;
 
-import com.github.pagehelper.PageInfo;
+import com.github.pagehelper.Page;
 
 import java.util.List;
 
@@ -17,14 +17,13 @@ public class CommonPage<T> {
     /**
      * 将PageHelper分页后的list转为分页信息
      */
-    public static <T> CommonPage<T> restPage(List<T> list) {
+    public static <T> CommonPage<T> restPage(Page page, List<T> list) {
         CommonPage<T> result = new CommonPage<T>();
-        PageInfo<T> pageInfo = new PageInfo<T>(list);
-        result.setTotalPage(pageInfo.getPages());
-        result.setPageNum(pageInfo.getPageNum());
-        result.setPageSize(pageInfo.getPageSize());
-        result.setTotal(pageInfo.getTotal());
-        result.setList(pageInfo.getList());
+        result.setTotalPage(page.getPages());
+        result.setPageNum(page.getPageNum());
+        result.setPageSize(page.getPageSize());
+        result.setTotal(page.getTotal());
+        result.setList(list);
         return result;
     }
 

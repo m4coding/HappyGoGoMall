@@ -1,10 +1,7 @@
 package com.m4coding.mallmanager.service;
 
-import com.m4coding.mallmanager.dto.ListProductResult;
-import com.m4coding.mallmanager.dto.PmsProductParam;
-import com.m4coding.mallmanager.dto.PmsProductQueryParam;
-import com.m4coding.mallmanager.dto.PmsProductUpdateParam;
-import com.m4coding.mallmbg.mbg.model.PmsSpu;
+import com.m4coding.mallbase.api.CommonPage;
+import com.m4coding.mallmanager.dto.*;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -37,7 +34,16 @@ public interface PmsProductService {
      * @param pageNum
      * @return
      */
-    List<ListProductResult> getList(PmsProductQueryParam pmsProductQueryParam, Integer pageSize, Integer pageNum);
+    CommonPage<ListProductResult> getProductList(PmsProductQueryParam pmsProductQueryParam, Integer pageSize, Integer pageNum);
+
+    /**
+     * 分页查询商品分类
+     * @param pmsProductCategoryQueryParam
+     * @param pageSize
+     * @param pageNum
+     * @return
+     */
+    CommonPage<ListProductCategoryResult> getProductCategoryList(PmsProductCategoryQueryParam pmsProductCategoryQueryParam, Integer pageSize, Integer pageNum);
 
     /**
      * 批量更新spu状态

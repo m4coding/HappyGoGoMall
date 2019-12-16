@@ -3,11 +3,10 @@ package com.m4coding.mallmanager.service.impl;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
+import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
-import com.m4coding.mallmanager.dto.ListProductResult;
-import com.m4coding.mallmanager.dto.PmsProductParam;
-import com.m4coding.mallmanager.dto.PmsProductQueryParam;
-import com.m4coding.mallmanager.dto.PmsProductUpdateParam;
+import com.m4coding.mallbase.api.CommonPage;
+import com.m4coding.mallmanager.dto.*;
 import com.m4coding.mallmanager.service.PmsProductService;
 import com.m4coding.mallmbg.mbg.mapper.*;
 import com.m4coding.mallmbg.mbg.model.*;
@@ -235,8 +234,8 @@ public class PmsProductServiceImpl implements PmsProductService {
     }
 
     @Override
-    public List<ListProductResult> getList(PmsProductQueryParam pmsProductQueryParam, Integer pageSize, Integer pageNum) {
-        PageHelper.startPage(pageNum, pageSize);
+    public CommonPage<ListProductResult> getProductList(PmsProductQueryParam pmsProductQueryParam, Integer pageSize, Integer pageNum) {
+        Page page = new Page(pageNum, pageSize); //创建一个默认的page
 
         List<ListProductResult> resultList = new ArrayList<>();
 
@@ -250,6 +249,7 @@ public class PmsProductServiceImpl implements PmsProductService {
         for (PmsSpu pmsSpu : spuList) {
             PmsSkuExample pmsSkuExample = new PmsSkuExample();
             pmsSkuExample.createCriteria().andSpuIdEqualTo(pmsSpu.getProductId());
+            page = PageHelper.startPage(pageNum, pageSize); //对sku进行分页
             List<PmsSku> skuList = pmsSkuMapper.selectByExample(pmsSkuExample);
             for (PmsSku pmsSku : skuList) {
 
@@ -304,7 +304,31 @@ public class PmsProductServiceImpl implements PmsProductService {
             }
         }
 
-        return resultList;
+        return CommonPage.restPage(page, resultList);
+    }
+
+    @Override
+    public CommonPage<ListProductCategoryResult> getProductCategoryList(PmsProductCategoryQueryParam pmsProductCategoryQueryParam, Integer pageSize, Integer pageNum) {
+
+        List<ListProductCategoryResult> resultList = new ArrayList<>();
+
+        PmsCategoryExample pmsCategoryExample = new PmsCategoryExample();
+        PmsCategoryExample.Criteria criteria = pmsCategoryExample.createCriteria();
+
+        //名称模糊搜索
+        String keyWord = StrUtil.isEmpty(pmsProductCategoryQueryParam.getKeyword()) ? "" : pmsProductCategoryQueryParam.getKeyword();
+        criteria.andCategoryNameLike("%" + keyWord + "%");
+        Page page = PageHelper.startPage(pageNum, pageSize);
+        List<PmsCategory> categoryList = pmsCategoryMapper.selectByExample(pmsCategoryExample);
+        for (PmsCategory pmsCategory : categoryList) {
+                ListProductCategoryResult listProductCategoryResult = new ListProductCategoryResult();
+                listProductCategoryResult.setName(pmsCategory.getCategoryName());
+                listProductCategoryResult.setCategoryId(pmsCategory.getId());
+                //加入list
+                resultList.add(listProductCategoryResult);
+        }
+
+        return CommonPage.restPage(page, resultList);
     }
 
     @Override

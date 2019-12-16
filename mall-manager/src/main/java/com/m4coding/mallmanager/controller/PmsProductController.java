@@ -12,7 +12,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -108,11 +107,23 @@ public class PmsProductController {
     @ApiOperation(value = "查询商品，分页查询")
     @ApiVersion(1)
     @PostMapping("/getProductList")
-    public CommonResult<CommonPage<ListProductResult>> getList(@ApiParam(value = "版本号", allowableValues = "v1", required = true)
+    public CommonResult<CommonPage<ListProductResult>> getProductList(@ApiParam(value = "版本号", allowableValues = "v1", required = true)
                                                                @PathVariable(value = "version") String version,
                                                                @Valid @RequestBody PmsProductQueryParam pmsProductQueryParam, BindingResult bindingResult) {
-        List<ListProductResult> list = pmsProductService.getList(pmsProductQueryParam,
+        CommonPage<ListProductResult> list = pmsProductService.getProductList(pmsProductQueryParam,
                 pmsProductQueryParam.getPageSize(), pmsProductQueryParam.getPageNum());
-        return CommonResult.success(CommonPage.restPage(list));
+        return CommonResult.success(list);
+    }
+
+
+    @ApiOperation(value = "查询商品分类，分页查询")
+    @ApiVersion(1)
+    @PostMapping("/getCategoryList")
+    public CommonResult<CommonPage<ListProductCategoryResult>> getCategoryList(@ApiParam(value = "版本号", allowableValues = "v1", required = true)
+                                                               @PathVariable(value = "version") String version,
+                                                               @Valid @RequestBody PmsProductCategoryQueryParam pmsProductCategoryQueryParam, BindingResult bindingResult) {
+        CommonPage<ListProductCategoryResult> list = pmsProductService.getProductCategoryList(pmsProductCategoryQueryParam,
+                pmsProductCategoryQueryParam.getPageSize(), pmsProductCategoryQueryParam.getPageNum());
+        return CommonResult.success(list);
     }
 }
