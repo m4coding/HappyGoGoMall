@@ -50,11 +50,22 @@ public class OmsOrderServiceImpl implements OmsOrderService {
     public CommonPage<OmsOrder> getList(OmsOrderQueryParam omsOrderQueryParam) {
         Page page = PageHelper.startPage(omsOrderQueryParam.getPageNum(), omsOrderQueryParam.getPageSize());
         OmsOrderExample omsOrderExample = new OmsOrderExample();
-        OmsOrderExample.Criteria criteria = omsOrderExample.createCriteria().andOrderSnEqualTo(omsOrderQueryParam.getOrderSn())
-                .andStatusEqualTo(omsOrderQueryParam.getStatus())
-                .andOrderTypeEqualTo(omsOrderQueryParam.getOrderType())
-                .andSourceTypeEqualTo(omsOrderQueryParam.getSourceType())
-                .andCreateTimeEqualTo(omsOrderQueryParam.getCreateTime());
+        OmsOrderExample.Criteria criteria = omsOrderExample.createCriteria();
+        if (!StrUtil.isEmpty(omsOrderQueryParam.getOrderSn())) {
+            criteria.andOrderSnEqualTo(omsOrderQueryParam.getOrderSn());
+        }
+        if (omsOrderQueryParam.getStatus() != null) {
+            criteria.andStatusEqualTo(omsOrderQueryParam.getStatus());
+        }
+        if (omsOrderQueryParam.getOrderType() != null) {
+            criteria.andOrderTypeEqualTo(omsOrderQueryParam.getOrderType());
+        }
+        if (omsOrderQueryParam.getSourceType() != null) {
+            criteria.andSourceTypeEqualTo(omsOrderQueryParam.getSourceType());
+        }
+        if (omsOrderQueryParam.getCreateTime() != null) {
+            criteria.andCreateTimeEqualTo(omsOrderQueryParam.getCreateTime());
+        }
 
         //关键字搜索
         if (!StrUtil.isEmpty(omsOrderQueryParam.getReceiverKeyword())) {
