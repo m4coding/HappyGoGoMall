@@ -1,22 +1,22 @@
-drop table if exists oms_company_address;
+drop table if exists sms_home_advertise;
 
 /*==============================================================*/
-/* Table: oms_company_address                                   */
+/* Table: sms_home_advertise                                    */
 /*==============================================================*/
-create table oms_company_address
+create table sms_home_advertise
 (
    id                   bigint(20) not null auto_increment,
-   address_name         varchar(200) default NULL comment '地址名称',
-   send_status          int(1) default NULL comment '默认发货地址：0->否；1->是',
-   receive_status       int(1) default NULL comment '是否默认收货地址：0->否；1->是',
-   name                 varchar(64) default NULL comment '收发货人姓名',
-   phone                varchar(64) default NULL comment '收货人电话',
-   province             varchar(64) default NULL comment '省/直辖市',
-   city                 varchar(64) default NULL comment '市',
-   region               varchar(64) default NULL comment '区',
-   detail_address       varchar(200) default NULL comment '详细地址',
+   name                 varchar(100) default NULL,
+   type                 int(1) default NULL comment '轮播位置：0->PC首页轮播；1->app首页轮播',
+   pic                  varchar(500) default NULL,
+   start_time           int(11) not null default 0 ,
+   end_time             int(11) not null default 0 ,
+   status               int(1) default NULL comment '上下线状态：0->下线；1->上线',
+   click_count          int(11) default NULL comment '点击数',
+   order_count          int(11) default NULL comment '下单数',
+   url                  varchar(500) default NULL comment '链接地址',
+   note                 varchar(500) default NULL comment '备注',
+   sort                 int(11) default 0 comment '排序',
    primary key (id)
 )
-ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='公司收发货地址表';
-
-alter table oms_company_address comment '公司收发货地址表';
+ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='首页轮播广告表';

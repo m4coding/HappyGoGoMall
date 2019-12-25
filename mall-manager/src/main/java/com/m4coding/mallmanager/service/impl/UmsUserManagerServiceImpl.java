@@ -1,6 +1,7 @@
 package com.m4coding.mallmanager.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import com.m4coding.mallmanager.bo.AdminUserDetails;
 import com.m4coding.mallmanager.dto.UmsUpdateUserManagerParam;
@@ -65,23 +66,26 @@ public class UmsUserManagerServiceImpl implements UmsUserManagerService, UserDet
             return null;
         }
 
-        UmsAdminAuth umsAdminAuth = umsAdminAuthMapper.selectByPrimaryKey(list.get(0).getAdminId());
-        if (umsAdminAuth != null) {
+        UmsAdminAuthExample umsAdminAuthExample = new UmsAdminAuthExample();
+        umsAdminAuthExample.createCriteria().andAdminIdEqualTo(list.get(0).getAdminId());
+        List<UmsAdminAuth> authList = umsAdminAuthMapper.selectByExample(umsAdminAuthExample);
+        if (!CollectionUtil.isEmpty(authList)) {
+            UmsAdminAuth umsAdminAuth = authList.get(0);
             //判断激活状态
             if (!umsAdminAuth.getIfVerify()) {
                 throw new BadCredentialsException("账号未被激活");
             }
 
             //此步类似实现AuthenticationManager鉴权
-            AdminUserDetails adminUserDetails = (AdminUserDetails) loadUserByUsername(adminName);
-            if(!passwordEncoder.matches(password, adminUserDetails.getPassword())){
+            AdminUserDetails userDetails = new AdminUserDetails(list.get(0), umsAdminAuth);;
+            if(!passwordEncoder.matches(password, userDetails.getPassword())){
                 throw new BadCredentialsException("密码不正确");
             }
             //生成authentication，并保存在SecurityContext中
-            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(adminUserDetails, null, adminUserDetails.getAuthorities());
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(userDetails, null, userDetails.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
             //生成JWT token
-            token = jwtTokenUtil.generateToken(adminUserDetails);
+            token = jwtTokenUtil.generateToken(userDetails);
             insertLoginLog(list.get(0));
         }
 
@@ -120,19 +124,24 @@ public class UmsUserManagerServiceImpl implements UmsUserManagerService, UserDet
         //获取插入后返回的adminId
         int adminId = umsAdminMapper.insert(umsAdmin);
 
-        String encodedCertificate = passwordEncoder.encode(umsUserManagerRegisterParam.getCertificate());
+        if (adminId > 0) {
+            String encodedCertificate = passwordEncoder.encode(umsUserManagerRegisterParam.getCertificate());
 
-        //关联管理员认证表
-        UmsAdminAuth umsAdminAuth = new UmsAdminAuth();
-        umsAdminAuth.setAdminId(adminId);
-        umsAdminAuth.setIdentityType(umsUserManagerRegisterParam.getIdentityType());
-        umsAdminAuth.setIdentity(umsUserManagerRegisterParam.getIdentity());
-        umsAdminAuth.setCertificate(encodedCertificate);
-        umsAdminAuth.setIfVerify(false); //未认证状态
+            //关联管理员认证表
+            UmsAdminAuth umsAdminAuth = new UmsAdminAuth();
+            umsAdminAuth.setAdminId(umsAdmin.getAdminId());
+            umsAdminAuth.setIdentityType(umsUserManagerRegisterParam.getIdentityType());
+            umsAdminAuth.setIdentity(umsUserManagerRegisterParam.getIdentity());
+            umsAdminAuth.setCertificate(encodedCertificate);
+            umsAdminAuth.setIfVerify(false); //未认证状态
 
-        umsAdminAuthMapper.insert(umsAdminAuth);
+            umsAdminAuthMapper.insert(umsAdminAuth);
 
-        return umsAdmin;
+            return umsAdmin;
+        } else {
+            LOGGER.error("注册异常：umsAdminMapper.insert {}", umsAdmin.getAdminName());
+            return null;
+        }
     }
 
     @Override
@@ -198,8 +207,11 @@ public class UmsUserManagerServiceImpl implements UmsUserManagerService, UserDet
 
         if (list != null && !list.isEmpty()) {
             UmsAdmin umsAdmin = list.get(0);
-            UmsAdminAuth umsAdminAuth = umsAdminAuthMapper.selectByPrimaryKey(umsAdmin.getAdminId());
-            if (umsAdminAuth != null) {
+            UmsAdminAuthExample umsAdminAuthExample = new UmsAdminAuthExample();
+            umsAdminAuthExample.createCriteria().andAdminIdEqualTo(umsAdmin.getAdminId());
+            List<UmsAdminAuth> authList = umsAdminAuthMapper.selectByExample(umsAdminAuthExample);
+            if (!CollectionUtil.isEmpty(authList)) {
+                UmsAdminAuth umsAdminAuth = authList.get(0);
                 return new AdminUserDetails(umsAdmin, umsAdminAuth);
             }
         }

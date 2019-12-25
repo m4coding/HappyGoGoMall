@@ -4,6 +4,7 @@ import com.m4coding.mallmanager.dto.UmsUpdateUserManagerParam;
 import com.m4coding.mallmanager.dto.UmsUpdateUserManagerPwParam;
 import com.m4coding.mallmanager.dto.UmsUserManagerRegisterParam;
 import com.m4coding.mallmbg.mbg.model.UmsAdmin;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * 后台管理员服务接口
@@ -22,6 +23,7 @@ public interface UmsUserManagerService {
     /**
      * 注册功能
      */
+    @Transactional
     UmsAdmin register(UmsUserManagerRegisterParam umsUserManagerRegisterParam);
 
     /**
@@ -36,10 +38,12 @@ public interface UmsUserManagerService {
      * @param updateUserManagerParam
      * @return
      */
+    @Transactional
     int updateInfo(UmsUpdateUserManagerParam updateUserManagerParam);
 
     /**
      * 修改密码
      */
+    @Transactional
     int updatePassword(UmsUpdateUserManagerPwParam updatePasswordParam);
 }
