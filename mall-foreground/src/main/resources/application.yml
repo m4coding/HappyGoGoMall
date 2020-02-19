@@ -32,3 +32,6 @@ secure:
       - /druid/**
       - /api/user/**/login
       - /api/user/**/register
+      - /api/home/**/pageContentInfo
+      - /api/home/**/pageListInfo
+      - /api/home/**/getCategoryList

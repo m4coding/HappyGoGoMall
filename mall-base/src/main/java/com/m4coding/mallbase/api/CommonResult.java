@@ -1,10 +1,14 @@
 package com.m4coding.mallbase.api;
 
+import io.swagger.annotations.ApiModelProperty;
+
 /**
  * api通用返回对象
  */
 public class CommonResult<T> {
+    @ApiModelProperty(value = "状态码值 20000表示成功，其他2xxxx表示失败")
     private long code;
+    @ApiModelProperty(value = "提示信息")
     private String message;
     private T data;
 
