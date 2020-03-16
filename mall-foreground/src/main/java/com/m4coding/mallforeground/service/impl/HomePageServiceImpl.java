@@ -11,6 +11,7 @@ import com.m4coding.mallforeground.dto.HomeProductCategoryQueryParam;
 import com.m4coding.mallforeground.dto.HomeProductCategoryResult;
 import com.m4coding.mallforeground.dto.childitem.HomeGalleryChildItem;
 import com.m4coding.mallforeground.dto.childitem.HomeProductCardChildItem;
+import com.m4coding.mallforeground.dto.childitem.HomeTabChannelChildItem;
 import com.m4coding.mallforeground.service.HomePageService;
 import com.m4coding.mallmbg.mbg.mapper.*;
 import com.m4coding.mallmbg.mbg.model.*;
@@ -28,6 +29,8 @@ public class HomePageServiceImpl implements HomePageService {
 
     @Autowired
     private SmsHomeAdvertiseMapper smsHomeAdvertiseMapper;
+    @Autowired
+    private SmsHomeTabMapper smsHomeTabMapper;
     @Autowired
     private PmsSpuMapper pmsSpuMapper;
     @Autowired
@@ -67,7 +70,28 @@ public class HomePageServiceImpl implements HomePageService {
             }
         }
 
-        homePageInfoResult.setSections(sections);
+        //底部tab
+        HomeCommonItemResult<HomeTabChannelChildItem> tabChannelItem = HomeTabChannelChildItem.createCommonItem();
+        SmsHomeTabExample smsHomeTabExample = new SmsHomeTabExample();
+        List<SmsHomeTab> homeTabList = smsHomeTabMapper.selectByExample(smsHomeTabExample);
+        if (!CollectionUtil.isEmpty(homeTabList)) {
+            List<HomeTabChannelChildItem.Child> tabChildList = new ArrayList<>();
+            for (SmsHomeTab smsHomeTab : homeTabList) {
+                HomeTabChannelChildItem.Child tabChild = new HomeTabChannelChildItem.Child();
+                tabChild.setTitle(smsHomeTab.getTitle());
+                tabChild.setSubTitle(smsHomeTab.getSubtitle());
+                tabChild.setType(smsHomeTab.getType());
+                tabChildList.add(tabChild);
+            }
+
+            if (!CollectionUtil.isEmpty(tabChildList)) {
+                HomeCommonItemResult<HomeTabChannelChildItem> tabItem = HomeTabChannelChildItem.createCommonItem();
+                tabItem.getBody().setItems(tabChildList);
+                sections.add(tabItem);
+            }
+
+            homePageInfoResult.setSections(sections);
+        }
 
         return homePageInfoResult;
     }

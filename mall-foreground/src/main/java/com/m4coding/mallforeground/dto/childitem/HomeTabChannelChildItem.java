@@ -1,5 +1,6 @@
 package com.m4coding.mallforeground.dto.childitem;
 
+import com.m4coding.mallforeground.dto.HomeCommonItemResult;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -21,5 +22,12 @@ public class HomeTabChannelChildItem {
         private String title;
         private String subTitle;
         private String type;
+    }
+
+    public static HomeCommonItemResult<HomeTabChannelChildItem> createCommonItem() {
+        HomeCommonItemResult result = new HomeCommonItemResult<HomeTabChannelChildItem>();
+        result.setViewType("tab_channel");
+        result.setBody(new HomeTabChannelChildItem());
+        return result;
     }
 }

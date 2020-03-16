@@ -120,5 +120,10 @@
         <table tableName="sms_home_advertise">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
+
+        <!-- 首页列表数据tab表-->
+        <table tableName="sms_home_tab">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>
