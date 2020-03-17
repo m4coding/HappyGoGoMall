@@ -30,6 +30,12 @@ public class ListProductResult {
     @ApiModelProperty(value = "商品广告图")
     private List<String> bannerPicList;
 
+    @ApiModelProperty(value = "商品Id")
+    private Long productSkuId;
+
+    @ApiModelProperty(value = "spu Id")
+    private Long productSpuId;
+
     public String getBrandName() {
         return brandName;
     }
@@ -84,5 +90,21 @@ public class ListProductResult {
 
     public void setBannerPicList(List<String> bannerPicList) {
         this.bannerPicList = bannerPicList;
+    }
+
+    public Long getProductSkuId() {
+        return productSkuId;
+    }
+
+    public void setProductSkuId(Long productSkuId) {
+        this.productSkuId = productSkuId;
+    }
+
+    public Long getProductSpuId() {
+        return productSpuId;
+    }
+
+    public void setProductSpuId(Long productSpuId) {
+        this.productSpuId = productSpuId;
     }
 }

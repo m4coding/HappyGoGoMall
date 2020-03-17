@@ -5,10 +5,14 @@ spring:
   profiles:
     active: dev #默认为开发环境
 
+
 # mybatis配置
 mybatis:
   mapper-locations:
     - classpath*:com/**/mapper/*.xml
+  #开启驼峰命名转换
+  configuration:
+    map-underscore-to-camel-case: true
 
 jwt:
   tokenHeader: Authorization #JWT存储的请求头

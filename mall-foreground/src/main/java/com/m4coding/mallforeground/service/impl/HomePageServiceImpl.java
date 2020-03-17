@@ -5,10 +5,7 @@ import cn.hutool.core.util.StrUtil;
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
 import com.m4coding.mallbase.api.CommonPage;
-import com.m4coding.mallforeground.dto.HomeCommonItemResult;
-import com.m4coding.mallforeground.dto.HomePageInfoResult;
-import com.m4coding.mallforeground.dto.HomeProductCategoryQueryParam;
-import com.m4coding.mallforeground.dto.HomeProductCategoryResult;
+import com.m4coding.mallforeground.dto.*;
 import com.m4coding.mallforeground.dto.childitem.HomeGalleryChildItem;
 import com.m4coding.mallforeground.dto.childitem.HomeProductCardChildItem;
 import com.m4coding.mallforeground.dto.childitem.HomeTabChannelChildItem;
@@ -97,21 +94,34 @@ public class HomePageServiceImpl implements HomePageService {
     }
 
     @Override
-    public CommonPage<HomeCommonItemResult> pageListInfo(Integer pageSize, Integer pageNum) {
-        Page page = new Page(pageNum, pageSize); //创建一个默认的page
+    public CommonPage<HomeCommonItemResult> pageListInfo(HomeProductListQueryParam homeProductListQueryParam) {
+        Page page = new Page(homeProductListQueryParam.getPageNum(), homeProductListQueryParam.getPageSize()); //创建一个默认的page
 
         List<HomeCommonItemResult> itemList = new ArrayList<>();
 
         PmsSpuExample pmsSpuExample = new PmsSpuExample();
         PmsSpuExample.Criteria criteria = pmsSpuExample.createCriteria();
 
-        criteria.andProductNameLike("%");
-        List<PmsSpu> spuList = pmsSpuMapper.selectByExample(pmsSpuExample);
+        String keyWord = StrUtil.isEmpty(homeProductListQueryParam.getKeyword()) ? "" : homeProductListQueryParam.getKeyword();
+        criteria.andProductNameLike("%" + keyWord + "%");
+        if (!StrUtil.isEmpty(homeProductListQueryParam.getTabType())) { //tabType
+            try {
+                int tabType = Integer.parseInt(homeProductListQueryParam.getTabType());
+                if (tabType != -2000) {
+                    criteria.andCategoryIdEqualTo((long) tabType);
+                } else {
+                    pmsSpuExample.setOrderByClause(" RAND()"); //随机查询  类似于在sql语句后面加上order by RAND()
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        page = PageHelper.startPage(homeProductListQueryParam.getPageNum(), homeProductListQueryParam.getPageSize()); //分页
+        List<PmsSpu> spuList = pmsSpuMapper.selectByExampleWithBLOBs(pmsSpuExample);
         for (PmsSpu pmsSpu : spuList) {
             PmsSkuExample pmsSkuExample = new PmsSkuExample();
             pmsSkuExample.createCriteria().andSpuIdEqualTo(pmsSpu.getProductId());
-            page = PageHelper.startPage(pageNum, pageSize); //对sku进行分页
-            List<PmsSku> skuList = pmsSkuMapper.selectByExample(pmsSkuExample);
+            List<PmsSku> skuList = pmsSkuMapper.selectByExampleWithBLOBs(pmsSkuExample);
             for (PmsSku pmsSku : skuList) {
 
                 HomeProductCardChildItem.Child productCardChildItem = new HomeProductCardChildItem.Child();
@@ -139,6 +149,11 @@ public class HomePageServiceImpl implements HomePageService {
                 }
                 productCardChildItem.setProductName(productNameBuilder.toString());
 
+                //商品id
+                productCardChildItem.setProductSkuId(pmsSku.getId());
+                //spu Id
+                productCardChildItem.setProductSpuId(pmsSpu.getProductId());
+
                 //加入list
                 HomeCommonItemResult<HomeProductCardChildItem> commonItemResult = HomeProductCardChildItem.createItem();
                 HomeProductCardChildItem body = commonItemResult.getBody();
@@ -163,8 +178,10 @@ public class HomePageServiceImpl implements HomePageService {
 
         //名称模糊搜索
         String keyWord = StrUtil.isEmpty(homeProductCategoryQueryParam.getKeyword()) ? "" : homeProductCategoryQueryParam.getKeyword();
-        criteria.andCategoryNameLike("%" + keyWord + "%")
-                .andPidEqualTo(0L);
+        criteria.andCategoryNameLike("%" + keyWord + "%");
+        if (homeProductCategoryQueryParam.getIsRootCategory()) {
+            criteria.andPidEqualTo(0L);
+        }
         Page page = PageHelper.startPage(pageNum, pageSize);
         List<PmsCategory> categoryList = pmsCategoryMapper.selectByExample(pmsCategoryExample);
         for (PmsCategory pmsCategory : categoryList) {

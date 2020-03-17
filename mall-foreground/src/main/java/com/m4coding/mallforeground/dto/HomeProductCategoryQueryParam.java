@@ -12,6 +12,9 @@ public class HomeProductCategoryQueryParam {
     @ApiModelProperty(value = "商品分类模糊关键字,不填或者空字符串则表示搜索全部")
     private String keyword;
 
+    @ApiModelProperty(value = "是否是根分类, 默认是")
+    private boolean isRootCategory = true;
+
     @ApiModelProperty(value = "每页数目", required = true)
     @NotNull(message = "每页数目不能为空")
     @Positive(message = "每页数目不能小于0")
@@ -44,5 +47,13 @@ public class HomeProductCategoryQueryParam {
 
     public void setPageNum(Integer pageNum) {
         this.pageNum = pageNum;
+    }
+
+    public boolean getIsRootCategory() {
+        return isRootCategory;
+    }
+
+    public void setIsRootCategory(boolean rootCategory) {
+        isRootCategory = rootCategory;
     }
 }

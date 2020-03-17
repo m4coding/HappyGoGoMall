@@ -46,7 +46,7 @@ public class HomeController {
     public CommonResult pageListInfo(@ApiParam(value = "版本号", allowableValues = "v1", required = true)
                                         @PathVariable(value = "version") String version,
                                      @Valid @RequestBody HomeProductListQueryParam homeProductListQueryParam, BindingResult bindingResult) {
-        return CommonResult.success(homePageService.pageListInfo(homeProductListQueryParam.getPageSize(), homeProductListQueryParam.getPageNum()));
+        return CommonResult.success(homePageService.pageListInfo(homeProductListQueryParam));
     }
 
 

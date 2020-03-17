@@ -110,8 +110,7 @@ public class PmsProductController {
     public CommonResult<CommonPage<ListProductResult>> getProductList(@ApiParam(value = "版本号", allowableValues = "v1", required = true)
                                                                @PathVariable(value = "version") String version,
                                                                @Valid @RequestBody PmsProductQueryParam pmsProductQueryParam, BindingResult bindingResult) {
-        CommonPage<ListProductResult> list = pmsProductService.getProductList(pmsProductQueryParam,
-                pmsProductQueryParam.getPageSize(), pmsProductQueryParam.getPageNum());
+        CommonPage<ListProductResult> list = pmsProductService.getProductList(pmsProductQueryParam);
         return CommonResult.success(list);
     }
 

@@ -22,6 +22,9 @@ public class PmsProductCategoryQueryParam {
     @Positive(message = "页码不能小于0")
     private Integer pageNum;
 
+    @ApiModelProperty(value = "是否是根分类, 默认是")
+    private boolean isRootCategory = true;
+
     public String getKeyword() {
         return keyword;
     }
@@ -44,5 +47,13 @@ public class PmsProductCategoryQueryParam {
 
     public void setPageNum(Integer pageNum) {
         this.pageNum = pageNum;
+    }
+
+    public boolean getIsRootCategory() {
+        return isRootCategory;
+    }
+
+    public void setIsRootCategory(boolean rootCategory) {
+        isRootCategory = rootCategory;
     }
 }

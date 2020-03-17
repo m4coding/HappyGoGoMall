@@ -128,6 +128,8 @@ public class PmsProductServiceImpl implements PmsProductService {
         pmsSku.setAttrs(attrValueId.toString());
         pmsSku.setCreateTime((int) DateUtil.currentSeconds());
         pmsSku.setUpdateTime((int) DateUtil.currentSeconds());
+        pmsSku.setBannerUrl(CollectionUtil.join(pmsProductParam.getBannerPicList(), ","));
+        pmsSku.setMainUrl(CollectionUtil.join(pmsProductParam.getMainPicList(), ","));
         pmsSku.setStatus(1);
 
         if (pmsSkuMapper.insertSelective(pmsSku) != 1) {
@@ -184,6 +186,9 @@ public class PmsProductServiceImpl implements PmsProductService {
             pmsSku.setMarketPrice(pmsProductUpdateParam.getMarketPrice());
             pmsSku.setSalePrice(pmsProductUpdateParam.getSalePrice());
             pmsSku.setUpdateTime((int) DateUtil.currentSeconds());
+            pmsSku.setMainUrl(CollectionUtil.join(pmsProductUpdateParam.getMainPicList(), ","));
+            pmsSku.setBannerUrl(CollectionUtil.join(pmsProductUpdateParam.getBannerPicList(), ","));
+
             StringBuilder attrValueIdSet = new StringBuilder();
             for (int i = 0; i < pmsProductUpdateParam.getAttrs().size(); i++) {
                 if (i == 0) {
@@ -219,8 +224,8 @@ public class PmsProductServiceImpl implements PmsProductService {
 
             //更新库存
             PmsSkuStock pmsSkuStock = new PmsSkuStock();
-            pmsSkuStock.setSkuId(pmsSku.getId().intValue());
-            pmsSkuStock.setQuantity(pmsProductUpdateParam.getStock().intValue());
+            pmsSkuStock.setSkuId(pmsSku.getId() == null ? null : pmsSku.getId().intValue());
+            pmsSkuStock.setQuantity(pmsProductUpdateParam.getStock() == null ? null : pmsProductUpdateParam.getStock().intValue());
             pmsSkuStock.setUpdateTime((int) DateUtil.currentSeconds());
             PmsSkuStockExample pmsSkuStockExample = new PmsSkuStockExample();
             pmsSkuStockExample.createCriteria().andSkuIdEqualTo(pmsSkuStock.getSkuId());
@@ -234,8 +239,8 @@ public class PmsProductServiceImpl implements PmsProductService {
     }
 
     @Override
-    public CommonPage<ListProductResult> getProductList(PmsProductQueryParam pmsProductQueryParam, Integer pageSize, Integer pageNum) {
-        Page page = new Page(pageNum, pageSize); //创建一个默认的page
+    public CommonPage<ListProductResult> getProductList(PmsProductQueryParam pmsProductQueryParam) {
+        Page page = new Page(pmsProductQueryParam.getPageNum(), pmsProductQueryParam.getPageSize()); //创建一个默认的page
 
         List<ListProductResult> resultList = new ArrayList<>();
 
@@ -245,12 +250,12 @@ public class PmsProductServiceImpl implements PmsProductService {
         //名称模糊搜索
         String keyWord = StrUtil.isEmpty(pmsProductQueryParam.getKeyword()) ? "" : pmsProductQueryParam.getKeyword();
         criteria.andProductNameLike("%" + keyWord + "%");
-        List<PmsSpu> spuList = pmsSpuMapper.selectByExample(pmsSpuExample);
+        page = PageHelper.startPage(pmsProductQueryParam.getPageNum(), pmsProductQueryParam.getPageSize()); //分页
+        List<PmsSpu> spuList = pmsSpuMapper.selectByExampleWithBLOBs(pmsSpuExample);
         for (PmsSpu pmsSpu : spuList) {
             PmsSkuExample pmsSkuExample = new PmsSkuExample();
             pmsSkuExample.createCriteria().andSpuIdEqualTo(pmsSpu.getProductId());
-            page = PageHelper.startPage(pageNum, pageSize); //对sku进行分页
-            List<PmsSku> skuList = pmsSkuMapper.selectByExample(pmsSkuExample);
+            List<PmsSku> skuList = pmsSkuMapper.selectByExampleWithBLOBs(pmsSkuExample);
             for (PmsSku pmsSku : skuList) {
 
                 ListProductResult listProductResult = new ListProductResult();
@@ -299,6 +304,12 @@ public class PmsProductServiceImpl implements PmsProductService {
                 }
                 listProductResult.setName(productNameBuilder.toString());
 
+                //商品id
+                listProductResult.setProductSkuId(pmsSku.getId());
+
+                //spu Id
+                listProductResult.setProductSpuId(pmsSpu.getProductId());
+
                 //加入list
                 resultList.add(listProductResult);
             }
@@ -317,8 +328,10 @@ public class PmsProductServiceImpl implements PmsProductService {
 
         //名称模糊搜索
         String keyWord = StrUtil.isEmpty(pmsProductCategoryQueryParam.getKeyword()) ? "" : pmsProductCategoryQueryParam.getKeyword();
-        criteria.andCategoryNameLike("%" + keyWord + "%")
-                .andPidEqualTo(0L);
+        criteria.andCategoryNameLike("%" + keyWord + "%");
+        if (pmsProductCategoryQueryParam.getIsRootCategory()) {
+            criteria.andPidEqualTo(0L);
+        }
         Page page = PageHelper.startPage(pageNum, pageSize);
         List<PmsCategory> categoryList = pmsCategoryMapper.selectByExample(pmsCategoryExample);
         for (PmsCategory pmsCategory : categoryList) {

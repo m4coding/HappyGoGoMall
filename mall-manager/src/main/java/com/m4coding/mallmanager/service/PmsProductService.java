@@ -30,11 +30,9 @@ public interface PmsProductService {
     /**
      * 分页查询商品
      * @param pmsProductQueryParam
-     * @param pageSize
-     * @param pageNum
      * @return
      */
-    CommonPage<ListProductResult> getProductList(PmsProductQueryParam pmsProductQueryParam, Integer pageSize, Integer pageNum);
+    CommonPage<ListProductResult> getProductList(PmsProductQueryParam pmsProductQueryParam);
 
     /**
      * 分页查询商品分类
