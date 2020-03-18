@@ -17,12 +17,11 @@
     </parent>
 
     <modules>
-        <module>mall-base</module>
-        <module>mall-demo</module>
         <module>mall-foreground</module>
         <module>mall-manager</module>
         <module>mall-security</module>
         <module>mall-mbg</module>
+        <module>mall-base</module>
     </modules>
 
     <!--属性统一设置-->
@@ -154,13 +153,13 @@
     </dependencyManagement>
 
 
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>
-        </plugins>
-    </build>
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>org.springframework.boot</groupId>-->
+<!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
 
 </project>
