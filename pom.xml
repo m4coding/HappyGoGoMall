@@ -6,7 +6,7 @@
     <groupId>com.m4coding</groupId>
     <artifactId>HappyGoGo</artifactId>
     <packaging>pom</packaging>
-    <version>${mall.version}</version>
+    <version>1.0.0</version>
 
     <!--指定自己的父pom-->
     <parent>
@@ -43,7 +43,6 @@
         <jjwt.version>0.9.0</jjwt.version>
         <hutool.version>5.0.7</hutool.version>
 
-        <mall.version>1.0.0</mall.version>
         <mall-base.version>1.0.0</mall-base.version>
         <mall-mbg.version>1.0.0</mall-mbg.version>
         <mall-security.version>1.0.0</mall-security.version>

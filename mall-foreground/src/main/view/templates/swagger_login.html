@@ -1,0 +1,92 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Swagger登录</title>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4 col-md-offset-4">
+            <div class="login-panel panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Swagger登录</h3>
+                </div>
+                <div class="panel-body">
+                    <form role="form">
+                        <fieldset>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="用户名" name="username" type="text" id="username" autofocus>
+                            </div>
+                            <div class="form-group">
+                                <input class="form-control" placeholder="密码" name="password" type="password" id="password" value="">
+                            </div>
+                            <div class="form-group" style="height: 37px">
+                            </div>
+                            <!-- Change this to a button or input when using this as a form -->
+                            <a class="btn btn-lg btn-success btn-block" onclick="login()">登录</a>
+                            <!-- getScheme()获取协议，getServerName()获取服务器名，getServerPort()服务器端口，getContextPath() APP根路径-->
+                            <a th:href="${#httpServletRequest.getScheme()
+                             + '://' + #httpServletRequest.getServerName() + ':' + #request.getServerPort()  + #request.getContextPath()} "
+                               id="contextPath"></a>
+                        </fieldset>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- jQuery -->
+<!--<script type="text/javascript" th:src="@{/js/jquery.min.js}" src="../static/js/jquery.min.js" ></script>-->
+<script src="https://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+<script th:inline="javascript">
+    function login() {
+        var contextPath = $('#contextPath').attr('href'); //获取应用的根目录
+        // alert(rurl);
+        var username = $("#username").val();
+        if(username.length < 1) {
+            alert("请输入用户名");
+            return;
+        }
+        var password = $("#password").val();
+        if(password.length < 1) {
+            alert("请输入密码");
+            return;
+        }
+        try {
+            window.btoa(password); //btoa base64编码
+        } catch (error) {
+            $("#password").val("");
+            return;
+        }
+
+        var rurl = [[${rurl}]]; //成功后，要重定向的url
+        var px = [[${px}]]; //nginx代理的location
+        alert(px);
+        var loginUrl;
+        if (px) {
+            loginUrl = contextPath + px + "swagger/login/check";
+        } else {
+            loginUrl = contextPath + "/swagger/login/check";
+        }
+        $.ajax({
+            type: "POST",
+            url: loginUrl,
+            dataType: "json",
+            data: {
+                "username": username,
+                "password": password,
+            }, success: function (data) {
+                console.log(data);
+                if(data.code == 20000) { //成功
+                    // window.location.href= contextPath + "/swagger-ui.html";
+                    window.location.href= rurl;
+                } else {
+                    alert(data.message);
+                }
+            }
+        });
+    }
+</script>
+</body>
+</html>
