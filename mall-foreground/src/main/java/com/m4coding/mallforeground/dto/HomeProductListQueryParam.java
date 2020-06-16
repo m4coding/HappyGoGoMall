@@ -22,7 +22,7 @@ public class HomeProductListQueryParam {
     @Positive(message = "页码不能小于0")
     private Integer pageNum;
 
-    @ApiModelProperty(value = "tab类型 -2000值指定为推荐获取", required = false)
+    @ApiModelProperty(value = "tab类型 -2000值指定为推荐获取，其他值也即是分类ID", required = false)
     private String tabType;
 
     @ApiModelProperty(value = "关键字", required = false)
