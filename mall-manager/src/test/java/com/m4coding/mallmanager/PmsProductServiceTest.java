@@ -58,36 +58,14 @@ public class PmsProductServiceTest {
             List<String> mainPicList = new ArrayList<>();
             mainPicList.add(imgUrl);
 
-            //存在，则不添加了
-            if (!CollectionUtil.isEmpty(commonPage.getList())) {
-                for (ListProductResult listProductResult : commonPage.getList()) {
-                    PmsProductUpdateParam pmsProductUpdateParam = new PmsProductUpdateParam();
-                    pmsProductUpdateParam.setProductId(listProductResult.getProductSpuId());
-                    pmsProductUpdateParam.setSkuId(listProductResult.getProductSkuId());
-                    pmsProductUpdateParam.setMarketPrice(jdProductItems.getPrice());
-                    pmsProductUpdateParam.setSalePrice(jdProductItems.getPrice());
-                    pmsProductUpdateParam.setMainPicList(mainPicList);
-                    pmsProductUpdateParam.setBannerPicList(bannerList);
-                    pmsProductService.update(pmsProductUpdateParam);
-                }
-                continue;
-            }
-
-            PmsProductParam pmsProductParam = new PmsProductParam();
-            pmsProductParam.setSalePrice(jdProductItems.getPrice());
-            pmsProductParam.setMarketPrice(jdProductItems.getPrice());
-            pmsProductParam.setProductName(jdProductItems.getTitle());
-
-            pmsProductParam.setBannerPicList(bannerList);
-            pmsProductParam.setMainPicList(mainPicList);
-
-            pmsProductParam.setStock(1000L); //库存
             //分类
             Long cateGoryId = -1L;
             if (jdProductItems.getKeyword().contains("女装") || jdProductItems.getTitle().contains("女装")) {
                 cateGoryId = getCategoryId("女装");
             } else if (jdProductItems.getKeyword().contains("男装") || jdProductItems.getTitle().contains("男装")) {
                 cateGoryId = getCategoryId("男装");
+            } else if (jdProductItems.getKeyword().contains("以纯") || jdProductItems.getTitle().contains("以纯")) {
+                cateGoryId = getCategoryId("服装");
             } else if (jdProductItems.getKeyword().contains("手机") || jdProductItems.getTitle().contains("手机")) {
                 cateGoryId = getCategoryId("手机");
             } else if (jdProductItems.getKeyword().contains("家电") || jdProductItems.getTitle().contains("家电")) {
@@ -95,10 +73,6 @@ public class PmsProductServiceTest {
             } else if (jdProductItems.getKeyword().contains("医药") || jdProductItems.getTitle().contains("医药")) {
                 cateGoryId = getCategoryId("医药");
             }
-            if (cateGoryId == -1) {
-                continue;
-            }
-            pmsProductParam.setCategoryId(cateGoryId);
 
             //品牌
             Long brandId = -1L;
@@ -113,10 +87,38 @@ public class PmsProductServiceTest {
             } else if (jdProductItems.getTitle().contains("vivo")) {
                 brandId = getBandId("vivo");
             }
-//            if (brandId == -1) {
-//                continue;
-//            }
+
+            //存在，则不添加了
+            if (!CollectionUtil.isEmpty(commonPage.getList())) {
+                for (ListProductResult listProductResult : commonPage.getList()) {
+                    PmsProductUpdateParam pmsProductUpdateParam = new PmsProductUpdateParam();
+                    pmsProductUpdateParam.setProductId(listProductResult.getProductSpuId());
+                    pmsProductUpdateParam.setSkuId(listProductResult.getProductSkuId());
+                    pmsProductUpdateParam.setMarketPrice(jdProductItems.getPrice());
+                    pmsProductUpdateParam.setSalePrice(jdProductItems.getPrice());
+                    pmsProductUpdateParam.setMainPicList(mainPicList);
+                    pmsProductUpdateParam.setBannerPicList(bannerList);
+                    pmsProductUpdateParam.setCategoryId(cateGoryId);
+                    pmsProductUpdateParam.setBrandId(brandId);
+                    pmsProductService.update(pmsProductUpdateParam);
+                }
+                continue;
+            }
+
+            PmsProductParam pmsProductParam = new PmsProductParam();
+            pmsProductParam.setSalePrice(jdProductItems.getPrice());
+            pmsProductParam.setMarketPrice(jdProductItems.getPrice());
+            pmsProductParam.setProductName(jdProductItems.getTitle());
+
+            pmsProductParam.setBannerPicList(bannerList);
+            pmsProductParam.setMainPicList(mainPicList);
+
+            pmsProductParam.setStock(1000L); //库存
+
+            pmsProductParam.setCategoryId(cateGoryId); //分类Id
             pmsProductParam.setBrandId(brandId); //品牌
+
+            System.out.println("pmsProductParam=" + pmsProductParam.toString());
 
             try {
                 pmsProductService.create(pmsProductParam);

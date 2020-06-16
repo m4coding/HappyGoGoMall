@@ -205,4 +205,20 @@ public class PmsProductParam {
     public void setBannerPicList(List<String> bannerPicList) {
         this.bannerPicList = bannerPicList;
     }
+
+    @Override
+    public String toString() {
+        return "PmsProductParam{" +
+                "productName='" + productName + '\'' +
+                ", categoryId=" + categoryId +
+                ", brandId=" + brandId +
+                ", description='" + description + '\'' +
+                ", stock=" + stock +
+                ", marketPrice=" + marketPrice +
+                ", salePrice=" + salePrice +
+                ", mainPicList=" + mainPicList +
+                ", bannerPicList=" + bannerPicList +
+                ", attrs=" + attrs +
+                '}';
+    }
 }
