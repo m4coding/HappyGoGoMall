@@ -111,7 +111,7 @@ public class UmsUserServiceImpl implements UmsUserService, UserDetailsService {
             umsUserAuth.setIdentityType(umsUserRegisterParam.getIdentityType());
             umsUserAuth.setIdentity(umsUserRegisterParam.getIdentity());
             umsUserAuth.setCertificate(encodedCertificate);
-            umsUserAuth.setIfVerify(false); //未认证状态
+            umsUserAuth.setIfVerify(true); //默认为认证激活状态
 
             umsUserAuthMapper.insert(umsUserAuth);
 
