@@ -24,6 +24,7 @@ public class BusinessTestUtils {
      * 登录
      */
     public static void login() {
+        Console.error("###### 登录操作######");
         HashMap<String, Object> paramMap = new HashMap<>();
         paramMap.put("userName", "yyy");
         paramMap.put("password", "yyy");

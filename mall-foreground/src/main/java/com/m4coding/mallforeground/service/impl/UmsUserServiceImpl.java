@@ -16,7 +16,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -175,6 +177,14 @@ public class UmsUserServiceImpl implements UmsUserService, UserDetailsService {
         umsUserAuth.setCertificate(passwordEncoder.encode(updatePasswordParam.getNewPassword()));
         umsUserAuthMapper.updateByPrimaryKey(umsUserAuth);
         return 1;
+    }
+
+    @Override
+    public UmsUser getCurrentUser() {
+        SecurityContext ctx = SecurityContextHolder.getContext();
+        Authentication auth = ctx.getAuthentication();
+        MyUserDetails myUserDetails = (MyUserDetails) auth.getPrincipal();
+        return myUserDetails.getUmsUser();
     }
 
 

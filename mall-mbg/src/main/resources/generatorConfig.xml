@@ -129,5 +129,10 @@
         <table tableName="sms_home_tab">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
+
+        <!-- 购物车数据表-->
+        <table tableName="oms_cart_item">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

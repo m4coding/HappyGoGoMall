@@ -46,4 +46,9 @@ public interface UmsUserService {
      */
     @Transactional
     int updatePassword(UmsUpdateUserPwParam updatePasswordParam);
+
+    /**
+     * 获取当前登录的用户
+     */
+    UmsUser getCurrentUser();
 }

@@ -21,6 +21,14 @@ public class MyUserDetails implements UserDetails {
         this.umsUserAuth = umsUserAuth;
     }
 
+    public UmsUser getUmsUser() {
+        return umsUser;
+    }
+
+    public UmsUserAuth getUmsUserAuth() {
+        return umsUserAuth;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
