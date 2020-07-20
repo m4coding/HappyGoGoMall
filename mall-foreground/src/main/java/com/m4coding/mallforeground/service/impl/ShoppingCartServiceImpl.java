@@ -229,4 +229,21 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         return true;
     }
+
+    @Override
+    public Integer getCartCount() throws Exception {
+
+        UmsUser umsUser = umsUserService.getCurrentUser();
+
+        if (umsUser == null) {
+            throw new Exception("找不到当前用户");
+        }
+
+
+        OmsCartItemExample omsCartItemExample = new OmsCartItemExample();
+        omsCartItemExample.createCriteria().andUserIdEqualTo(umsUser.getUserId().longValue());
+        List<OmsCartItem> list = omsCartItemMapper.selectByExample(omsCartItemExample);
+
+        return CollectionUtil.isEmpty(list) ? 0 : list.size();
+    }
 }

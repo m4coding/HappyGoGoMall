@@ -109,9 +109,13 @@ public class BusinessTestUtils {
         String paramBody = JSONUtil.toJsonStr(param);
         log(paramBody);
 
-        String result = wrapAuthHeader(HttpRequest.post(url))
-                .body(paramBody)
-                .execute().body();
+        HttpRequest httpRequest = wrapAuthHeader(HttpRequest.post(url));
+
+        if (StrUtil.isNotEmpty(paramBody)) {
+            httpRequest.body(paramBody);
+        }
+
+        String result = httpRequest.execute().body();
 
         Console.error("###### 返回结果 ######");
 

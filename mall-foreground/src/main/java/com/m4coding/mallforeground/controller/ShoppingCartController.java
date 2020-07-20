@@ -112,4 +112,24 @@ public class ShoppingCartController {
 
         return CommonResult.success(null, "更新购物车信息成功");
     }
+
+    @ApiOperation(value = "获取购物车商品种类数量")
+    @ApiVersion(1)
+    @RequestMapping(value = "/getCartCount", method = RequestMethod.POST)
+    public CommonResult<Integer> getCartCount(@ApiParam(value = "版本号", allowableValues = "v1", required = true)
+                                                       @PathVariable(value = "version") String version) {
+        Integer count = 0;
+        try {
+            count = shoppingCartService.getCartCount();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return CommonResult.failed(e.getMessage());
+        }
+
+        if (count == null) {
+            return CommonResult.failed();
+        }
+
+        return CommonResult.success(count, "获取购物车商品种类数量成功");
+    }
 }

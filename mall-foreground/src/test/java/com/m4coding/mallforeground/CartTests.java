@@ -83,4 +83,13 @@ public class CartTests {
 
         BusinessTestUtils.postAuth(BusinessTestUtils.HTTP_DOMAIN + "/api/cart/v1/updateCartInfo", omsCartUpdateParam);
     }
+
+    @Test
+    public void getCartCount() {
+        if (!BusinessTestUtils.isLogin()) {
+            BusinessTestUtils.login();
+        }
+
+        BusinessTestUtils.postAuth(BusinessTestUtils.HTTP_DOMAIN + "/api/cart/v1/getCartCount", null);
+    }
 }

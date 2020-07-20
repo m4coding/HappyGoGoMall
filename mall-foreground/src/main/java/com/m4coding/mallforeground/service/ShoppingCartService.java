@@ -42,4 +42,10 @@ public interface ShoppingCartService {
      */
     @Transactional
     boolean updateCartInfo(OmsCartUpdateParam omsCartUpdateParam) throws Exception;
+
+    /**
+     * 获取购物车商品品种数量
+     * @return
+     */
+    Integer getCartCount() throws Exception;
 }
