@@ -415,52 +415,52 @@ public class OmsCartItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateEqualTo(Integer value) {
+        public Criteria andCreateDateEqualTo(Long value) {
             addCriterion("create_date =", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateNotEqualTo(Integer value) {
+        public Criteria andCreateDateNotEqualTo(Long value) {
             addCriterion("create_date <>", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateGreaterThan(Integer value) {
+        public Criteria andCreateDateGreaterThan(Long value) {
             addCriterion("create_date >", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateGreaterThanOrEqualTo(Integer value) {
+        public Criteria andCreateDateGreaterThanOrEqualTo(Long value) {
             addCriterion("create_date >=", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateLessThan(Integer value) {
+        public Criteria andCreateDateLessThan(Long value) {
             addCriterion("create_date <", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateLessThanOrEqualTo(Integer value) {
+        public Criteria andCreateDateLessThanOrEqualTo(Long value) {
             addCriterion("create_date <=", value, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateIn(List<Integer> values) {
+        public Criteria andCreateDateIn(List<Long> values) {
             addCriterion("create_date in", values, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateNotIn(List<Integer> values) {
+        public Criteria andCreateDateNotIn(List<Long> values) {
             addCriterion("create_date not in", values, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateBetween(Integer value1, Integer value2) {
+        public Criteria andCreateDateBetween(Long value1, Long value2) {
             addCriterion("create_date between", value1, value2, "createDate");
             return (Criteria) this;
         }
 
-        public Criteria andCreateDateNotBetween(Integer value1, Integer value2) {
+        public Criteria andCreateDateNotBetween(Long value1, Long value2) {
             addCriterion("create_date not between", value1, value2, "createDate");
             return (Criteria) this;
         }
@@ -475,52 +475,52 @@ public class OmsCartItemExample {
             return (Criteria) this;
         }
 
-        public Criteria andModifyDateEqualTo(Integer value) {
+        public Criteria andModifyDateEqualTo(Long value) {
             addCriterion("modify_date =", value, "modifyDate");
             return (Criteria) this;
         }
 
-        public Criteria andModifyDateNotEqualTo(Integer value) {
+        public Criteria andModifyDateNotEqualTo(Long value) {
             addCriterion("modify_date <>", value, "modifyDate");
             return (Criteria) this;
         }
 
-        public Criteria andModifyDateGreaterThan(Integer value) {
+        public Criteria andModifyDateGreaterThan(Long value) {
             addCriterion("modify_date >", value, "modifyDate");
             return (Criteria) this;
         }
 
-        public Criteria andModifyDateGreaterThanOrEqualTo(Integer value) {
+        public Criteria andModifyDateGreaterThanOrEqualTo(Long value) {
             addCriterion("modify_date >=", value, "modifyDate");
             return (Criteria) this;
         }
 
-        public Criteria andModifyDateLessThan(Integer value) {
+        public Criteria andModifyDateLessThan(Long value) {
             addCriterion("modify_date <", value, "modifyDate");
             return (Criteria) this;
         }
 
-        public Criteria andModifyDateLessThanOrEqualTo(Integer value) {
+        public Criteria andModifyDateLessThanOrEqualTo(Long value) {
             addCriterion("modify_date <=", value, "modifyDate");
             return (Criteria) this;
         }
 
-        public Criteria andModifyDateIn(List<Integer> values) {
+        public Criteria andModifyDateIn(List<Long> values) {
             addCriterion("modify_date in", values, "modifyDate");
             return (Criteria) this;
         }
 
-        public Criteria andModifyDateNotIn(List<Integer> values) {
+        public Criteria andModifyDateNotIn(List<Long> values) {
             addCriterion("modify_date not in", values, "modifyDate");
             return (Criteria) this;
         }
 
-        public Criteria andModifyDateBetween(Integer value1, Integer value2) {
+        public Criteria andModifyDateBetween(Long value1, Long value2) {
             addCriterion("modify_date between", value1, value2, "modifyDate");
             return (Criteria) this;
         }
 
-        public Criteria andModifyDateNotBetween(Integer value1, Integer value2) {
+        public Criteria andModifyDateNotBetween(Long value1, Long value2) {
             addCriterion("modify_date not between", value1, value2, "modifyDate");
             return (Criteria) this;
         }

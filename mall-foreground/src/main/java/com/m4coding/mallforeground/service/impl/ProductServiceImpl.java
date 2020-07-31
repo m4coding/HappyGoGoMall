@@ -39,27 +39,25 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductDetailsResult getProductDetails(ProductDetailsParam productDetailsParam) throws Exception {
 
+        PmsSkuExample pmsSkuExample = new PmsSkuExample();
+        pmsSkuExample.createCriteria().andIdEqualTo(productDetailsParam.getProductSkuId().longValue());
+        List<PmsSku> skuList = pmsSkuMapper.selectByExampleWithBLOBs(pmsSkuExample);
 
-        PmsSpuExample pmsSpuExample = new PmsSpuExample();
-        PmsSpuExample.Criteria criteria = pmsSpuExample.createCriteria();
-        criteria.andProductIdEqualTo(productDetailsParam.getProductSkuId().longValue());
-
-        List<PmsSpu> spuList = pmsSpuMapper.selectByExampleWithBLOBs(pmsSpuExample);
-        if (CollectionUtil.isEmpty(spuList)) {
-            throw new Exception("找不到对应的spu");
+        if (CollectionUtil.isEmpty(skuList)) {
+            throw new Exception("找不到对应的sku");
         } else {
 
-            PmsSpu pmsSpu = spuList.get(0); //spu
+            PmsSku pmsSku = skuList.get(0); //sku
 
-            PmsSkuExample pmsSkuExample = new PmsSkuExample();
-            pmsSkuExample.createCriteria().andSpuIdEqualTo(pmsSpu.getProductId());
-            List<PmsSku> skuList = pmsSkuMapper.selectByExampleWithBLOBs(pmsSkuExample);
+            PmsSpuExample pmsSpuExample = new PmsSpuExample();
+            PmsSpuExample.Criteria criteria = pmsSpuExample.createCriteria();
+            criteria.andProductIdEqualTo(pmsSku.getSpuId());
 
-            if (CollectionUtil.isEmpty(skuList)) {
-                throw new Exception("找不到对应的sku");
+            List<PmsSpu> spuList = pmsSpuMapper.selectByExampleWithBLOBs(pmsSpuExample);
+            if (CollectionUtil.isEmpty(spuList)) {
+                throw new Exception("找不到对应的spu");
             } else {
-
-                PmsSku pmsSku = skuList.get(0); //sku
+                PmsSpu pmsSpu = spuList.get(0); //spu
 
                 ProductDetailsResult productDetailsResult = new ProductDetailsResult();
 

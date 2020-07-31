@@ -21,10 +21,10 @@ public class OmsCartItem implements Serializable {
     private BigDecimal price;
 
     @ApiModelProperty(value = "创建时间")
-    private Integer createDate;
+    private Long createDate;
 
     @ApiModelProperty(value = "修改时间")
-    private Integer modifyDate;
+    private Long modifyDate;
 
     @ApiModelProperty(value = "删除状态  0表示非删除状态、1表示删除状态")
     private Integer deleteStatus;
@@ -80,19 +80,19 @@ public class OmsCartItem implements Serializable {
         this.price = price;
     }
 
-    public Integer getCreateDate() {
+    public Long getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Integer createDate) {
+    public void setCreateDate(Long createDate) {
         this.createDate = createDate;
     }
 
-    public Integer getModifyDate() {
+    public Long getModifyDate() {
         return modifyDate;
     }
 
-    public void setModifyDate(Integer modifyDate) {
+    public void setModifyDate(Long modifyDate) {
         this.modifyDate = modifyDate;
     }
 

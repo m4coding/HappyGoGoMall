@@ -7,8 +7,8 @@
     <result column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="quantity" jdbcType="BIGINT" property="quantity" />
     <result column="price" jdbcType="DECIMAL" property="price" />
-    <result column="create_date" jdbcType="INTEGER" property="createDate" />
-    <result column="modify_date" jdbcType="INTEGER" property="modifyDate" />
+    <result column="create_date" jdbcType="BIGINT" property="createDate" />
+    <result column="modify_date" jdbcType="BIGINT" property="modifyDate" />
     <result column="delete_status" jdbcType="INTEGER" property="deleteStatus" />
     <result column="brand_id" jdbcType="VARCHAR" property="brandId" />
     <result column="category_id" jdbcType="VARCHAR" property="categoryId" />
@@ -115,7 +115,7 @@
       delete_status, brand_id, category_id, 
       item_status)
     values (#{productSkuId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, #{quantity,jdbcType=BIGINT}, 
-      #{price,jdbcType=DECIMAL}, #{createDate,jdbcType=INTEGER}, #{modifyDate,jdbcType=INTEGER}, 
+      #{price,jdbcType=DECIMAL}, #{createDate,jdbcType=BIGINT}, #{modifyDate,jdbcType=BIGINT}, 
       #{deleteStatus,jdbcType=INTEGER}, #{brandId,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, 
       #{itemStatus,jdbcType=INTEGER})
   </insert>
@@ -170,10 +170,10 @@
         #{price,jdbcType=DECIMAL},
       </if>
       <if test="createDate != null">
-        #{createDate,jdbcType=INTEGER},
+        #{createDate,jdbcType=BIGINT},
       </if>
       <if test="modifyDate != null">
-        #{modifyDate,jdbcType=INTEGER},
+        #{modifyDate,jdbcType=BIGINT},
       </if>
       <if test="deleteStatus != null">
         #{deleteStatus,jdbcType=INTEGER},
@@ -214,10 +214,10 @@
         price = #{record.price,jdbcType=DECIMAL},
       </if>
       <if test="record.createDate != null">
-        create_date = #{record.createDate,jdbcType=INTEGER},
+        create_date = #{record.createDate,jdbcType=BIGINT},
       </if>
       <if test="record.modifyDate != null">
-        modify_date = #{record.modifyDate,jdbcType=INTEGER},
+        modify_date = #{record.modifyDate,jdbcType=BIGINT},
       </if>
       <if test="record.deleteStatus != null">
         delete_status = #{record.deleteStatus,jdbcType=INTEGER},
@@ -243,8 +243,8 @@
       user_id = #{record.userId,jdbcType=BIGINT},
       quantity = #{record.quantity,jdbcType=BIGINT},
       price = #{record.price,jdbcType=DECIMAL},
-      create_date = #{record.createDate,jdbcType=INTEGER},
-      modify_date = #{record.modifyDate,jdbcType=INTEGER},
+      create_date = #{record.createDate,jdbcType=BIGINT},
+      modify_date = #{record.modifyDate,jdbcType=BIGINT},
       delete_status = #{record.deleteStatus,jdbcType=INTEGER},
       brand_id = #{record.brandId,jdbcType=VARCHAR},
       category_id = #{record.categoryId,jdbcType=VARCHAR},
@@ -269,10 +269,10 @@
         price = #{price,jdbcType=DECIMAL},
       </if>
       <if test="createDate != null">
-        create_date = #{createDate,jdbcType=INTEGER},
+        create_date = #{createDate,jdbcType=BIGINT},
       </if>
       <if test="modifyDate != null">
-        modify_date = #{modifyDate,jdbcType=INTEGER},
+        modify_date = #{modifyDate,jdbcType=BIGINT},
       </if>
       <if test="deleteStatus != null">
         delete_status = #{deleteStatus,jdbcType=INTEGER},
@@ -295,8 +295,8 @@
       user_id = #{userId,jdbcType=BIGINT},
       quantity = #{quantity,jdbcType=BIGINT},
       price = #{price,jdbcType=DECIMAL},
-      create_date = #{createDate,jdbcType=INTEGER},
-      modify_date = #{modifyDate,jdbcType=INTEGER},
+      create_date = #{createDate,jdbcType=BIGINT},
+      modify_date = #{modifyDate,jdbcType=BIGINT},
       delete_status = #{deleteStatus,jdbcType=INTEGER},
       brand_id = #{brandId,jdbcType=VARCHAR},
       category_id = #{categoryId,jdbcType=VARCHAR},

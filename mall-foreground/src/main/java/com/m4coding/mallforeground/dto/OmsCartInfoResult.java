@@ -46,6 +46,12 @@ public class OmsCartInfoResult {
         @ApiModelProperty(value = "分类id")
         private String categoryId;
 
+        @ApiModelProperty(value = "库存")
+        private Long stock;
+
+        @ApiModelProperty(value = "在购物车中的数量")
+        private Long quantity;
+
         public String getImageUrl() {
             return imageUrl;
         }
@@ -108,6 +114,22 @@ public class OmsCartInfoResult {
 
         public void setCategoryId(String categoryId) {
             this.categoryId = categoryId;
+        }
+
+        public Long getStock() {
+            return stock;
+        }
+
+        public void setStock(Long stock) {
+            this.stock = stock;
+        }
+
+        public Long getQuantity() {
+            return quantity;
+        }
+
+        public void setQuantity(Long quantity) {
+            this.quantity = quantity;
         }
     }
 }

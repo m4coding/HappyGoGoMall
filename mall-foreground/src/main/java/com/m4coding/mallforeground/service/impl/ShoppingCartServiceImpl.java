@@ -7,10 +7,7 @@ import com.m4coding.mallforeground.dto.OmsCartInfoResult;
 import com.m4coding.mallforeground.dto.OmsCartUpdateParam;
 import com.m4coding.mallforeground.service.ShoppingCartService;
 import com.m4coding.mallforeground.service.UmsUserService;
-import com.m4coding.mallmbg.mbg.mapper.OmsCartItemMapper;
-import com.m4coding.mallmbg.mbg.mapper.PmsSkuMapper;
-import com.m4coding.mallmbg.mbg.mapper.PmsSpuMapper;
-import com.m4coding.mallmbg.mbg.mapper.PmsSpuSkuAttrMapper;
+import com.m4coding.mallmbg.mbg.mapper.*;
 import com.m4coding.mallmbg.mbg.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +36,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     private PmsSpuMapper pmsSpuMapper;
     @Autowired
     private PmsSpuSkuAttrMapper pmsSpuSkuAttrMapper;
+    @Autowired
+    private PmsSkuStockMapper pmsSkuStockMapper;
     @Autowired
     private UmsUserService umsUserService;
 
@@ -74,7 +73,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         OmsCartItem omsCartItem = getCartItem(userId, omsCartAddParam.getProductSkuId());
         if (omsCartItem != null) {
             omsCartItem.setQuantity(omsCartAddParam.getQuantity());
-            omsCartItem.setModifyDate((int) System.currentTimeMillis());
+            omsCartItem.setModifyDate(System.currentTimeMillis());
             id = omsCartItemMapper.updateByPrimaryKey(omsCartItem);
         } else {
             omsCartItem = new OmsCartItem();
@@ -86,8 +85,8 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             omsCartItem.setBrandId(pmsSpu.getBrandId() + "");
             omsCartItem.setCategoryId(pmsSpu.getCategoryId() + "");
             omsCartItem.setPrice(pmsSku.getSalePrice());
-            omsCartItem.setCreateDate((int) System.currentTimeMillis());
-            omsCartItem.setModifyDate((int) System.currentTimeMillis());
+            omsCartItem.setCreateDate(System.currentTimeMillis());
+            omsCartItem.setModifyDate(System.currentTimeMillis());
             id = omsCartItemMapper.insert(omsCartItem);
         }
 
@@ -144,12 +143,17 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
         omsCartItemExample.createCriteria().andUserIdEqualTo(umsUser.getUserId().longValue());
         List<OmsCartItem> list = omsCartItemMapper.selectByExample(omsCartItemExample);
 
+        if (CollectionUtil.isEmpty(list)) {
+            return omsCartInfoResult;
+        }
+
         for (OmsCartItem omsCartItem : list) {
             OmsCartInfoResult.CartProductInfoBean cartProductInfoBean = new OmsCartInfoResult.CartProductInfoBean();
             cartProductInfoBean.setBrandId(omsCartItem.getBrandId());
             cartProductInfoBean.setCategoryId(omsCartItem.getCategoryId());
             cartProductInfoBean.setItemStatus(omsCartItem.getItemStatus());
             cartProductInfoBean.setProductSkuId(omsCartItem.getProductSkuId());
+            cartProductInfoBean.setQuantity(omsCartItem.getQuantity());
             productInfoBeanList.add(cartProductInfoBean);
         }
 
@@ -157,41 +161,58 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         PmsSkuExample pmsSkuExample = new PmsSkuExample();
         pmsSkuExample.createCriteria().andIdIn(productSkuIds);
-        List<PmsSku> skuList = pmsSkuMapper.selectByExample(pmsSkuExample);
+        List<PmsSku> skuList = pmsSkuMapper.selectByExampleWithBLOBs(pmsSkuExample);
 
         List<Long> productSpuIds = skuList.stream().map(PmsSku::getSpuId).collect(Collectors.toList());
 
         PmsSpuExample pmsSpuExample = new PmsSpuExample();
         pmsSpuExample.createCriteria().andProductIdIn(productSpuIds);
-        List<PmsSpu> spuList = pmsSpuMapper.selectByExample(pmsSpuExample);
+        List<PmsSpu> spuList = pmsSpuMapper.selectByExampleWithBLOBs(pmsSpuExample);
 
         int i = 0;
         for (PmsSpu pmsSpu : spuList) {
             int j = 0;
             for (PmsSku pmsSku : skuList) {
                 if (pmsSku.getSpuId().equals(pmsSpu.getProductId())) {
-                    OmsCartInfoResult.CartProductInfoBean cartProductInfoBean = productInfoBeanList.get(j);
-                    if (!StringUtils.isEmpty(pmsSku.getMainUrl())) {
-                        String[] mainUrls = pmsSku.getMainUrl().split(",");
-                        if (mainUrls.length > 0) {
-                            cartProductInfoBean.setImageUrl(mainUrls[0]);
-                        }
-                    }
-                    cartProductInfoBean.setProductOrgPrice(pmsSku.getMarketPrice() + "");
-                    cartProductInfoBean.setProductPrice(pmsSku.getSalePrice() + "");
 
-                    //商品名称
-                    StringBuilder productNameBuilder = new StringBuilder(pmsSpu.getProductName()); //先取spu的商品名称
-                    PmsSpuSkuAttrExample pmsSpuSkuAttrExample = new PmsSpuSkuAttrExample();
-                    pmsSpuSkuAttrExample.createCriteria().andSkuIdEqualTo(pmsSku.getId());
-                    List<PmsSpuSkuAttr> pmsSpuSkuAttrList = pmsSpuSkuAttrMapper.selectByExample(pmsSpuSkuAttrExample);
-                    if (!CollectionUtil.isEmpty(pmsSpuSkuAttrList)) {
-                        for (PmsSpuSkuAttr pmsSpuSkuAttr : pmsSpuSkuAttrList) {
-                            productNameBuilder.append(" ")
-                                    .append(pmsSpuSkuAttr.getAttrValueName());
+                    for (OmsCartInfoResult.CartProductInfoBean cartProductInfoBean : productInfoBeanList) {
+                        if (cartProductInfoBean.getProductSkuId().equals(pmsSku.getId())) {
+                            if (!StringUtils.isEmpty(pmsSku.getMainUrl())) {
+                                String[] mainUrls = pmsSku.getMainUrl().split(",");
+                                if (mainUrls.length > 0) {
+                                    cartProductInfoBean.setImageUrl(mainUrls[0]);
+                                }
+                            }
+                            cartProductInfoBean.setProductOrgPrice(pmsSku.getMarketPrice() + "");
+                            cartProductInfoBean.setProductPrice(pmsSku.getSalePrice() + "");
+
+                            //商品名称
+                            StringBuilder productNameBuilder = new StringBuilder(pmsSpu.getProductName()); //先取spu的商品名称
+                            PmsSpuSkuAttrExample pmsSpuSkuAttrExample = new PmsSpuSkuAttrExample();
+                            pmsSpuSkuAttrExample.createCriteria().andSkuIdEqualTo(pmsSku.getId());
+                            List<PmsSpuSkuAttr> pmsSpuSkuAttrList = pmsSpuSkuAttrMapper.selectByExample(pmsSpuSkuAttrExample);
+                            if (!CollectionUtil.isEmpty(pmsSpuSkuAttrList)) {
+                                for (PmsSpuSkuAttr pmsSpuSkuAttr : pmsSpuSkuAttrList) {
+                                    productNameBuilder.append(" ")
+                                            .append(pmsSpuSkuAttr.getAttrValueName());
+                                }
+                            }
+                            cartProductInfoBean.setProductName(productNameBuilder.toString());
+
+                            //商品库存
+                            PmsSkuStockExample pmsSkuStockExample = new PmsSkuStockExample();
+                            pmsSkuStockExample.createCriteria().andSkuIdEqualTo(pmsSku.getId().intValue());
+                            List<PmsSkuStock> stockList =  pmsSkuStockMapper.selectByExample(pmsSkuStockExample);
+                            if (CollectionUtil.isNotEmpty(stockList)) {
+                                cartProductInfoBean.setStock(stockList.get(0).getQuantity().longValue());
+                            }
+
+
+                            break;
                         }
                     }
-                    cartProductInfoBean.setProductName(productNameBuilder.toString());
+
+                    break;
                 }
                 j++;
             }
@@ -201,6 +222,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 
         return omsCartInfoResult;
     }
+
 
     @Override
     public boolean updateCartInfo(OmsCartUpdateParam omsCartUpdateParam) throws Exception {
