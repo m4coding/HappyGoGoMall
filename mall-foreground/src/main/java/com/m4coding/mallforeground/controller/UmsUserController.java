@@ -3,6 +3,7 @@ package com.m4coding.mallforeground.controller;
 import cn.hutool.core.util.StrUtil;
 import com.m4coding.mallbase.api.CommonResult;
 import com.m4coding.mallbase.version.ApiVersion;
+import com.m4coding.mallforeground.dto.UmsUserInfo;
 import com.m4coding.mallforeground.dto.UmsUserLoginParam;
 import com.m4coding.mallforeground.dto.UmsUserRegisterParam;
 import com.m4coding.mallforeground.service.UmsUserService;
@@ -70,9 +71,9 @@ public class UmsUserController {
     @ApiVersion(1)
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public CommonResult<UmsUser> register(@ApiParam(value = "版本号", allowableValues = "v1", required = true)
-                                           @PathVariable(value = "version") String version,
-                                           @Valid @RequestBody UmsUserRegisterParam umsUserRegisterParam,
-                                           BindingResult bindingResult) {
+                                          @PathVariable(value = "version") String version,
+                                          @Valid @RequestBody UmsUserRegisterParam umsUserRegisterParam,
+                                          BindingResult bindingResult) {
         UmsUser umsUser = umsUserService.register(umsUserRegisterParam);
 
         if (null == umsUser) {
@@ -80,5 +81,23 @@ public class UmsUserController {
         }
 
         return CommonResult.success(umsUser);
+    }
+
+    @ApiOperation(value = "获取用户信息")
+    @ApiVersion(1)
+    @RequestMapping(value = "/getUserInfo", method = RequestMethod.POST)
+    public CommonResult<UmsUserInfo> register(@ApiParam(value = "版本号", allowableValues = "v1", required = true)
+                                          @PathVariable(value = "version") String version) {
+        UmsUser umsUser = umsUserService.getCurrentUser();
+
+        if (null == umsUser) {
+            return CommonResult.failed();
+        }
+
+        UmsUserInfo umsUserInfo = new UmsUserInfo();
+        umsUserInfo.setUserId(umsUser.getUserId());
+        umsUserInfo.setUserName(umsUser.getUserName());
+
+        return CommonResult.success(umsUserInfo);
     }
 }

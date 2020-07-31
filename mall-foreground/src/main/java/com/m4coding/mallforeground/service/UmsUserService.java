@@ -29,7 +29,7 @@ public interface UmsUserService {
     UmsUser register(UmsUserRegisterParam umsUserManagerRegisterParam);
 
     /**
-     * 获取管理员信息
+     * 获取用户信息
      * @return
      */
     UmsUser getUserInfo(String adminName);

@@ -134,5 +134,10 @@
         <table tableName="oms_cart_item">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
+
+        <!-- 用户收货地址表-->
+        <table tableName="ums_user_receiver_address">
+            <generatedKey column="id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>
