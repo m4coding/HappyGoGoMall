@@ -120,8 +120,11 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
             return false;
         }
 
+        UmsUser umsUser = umsUserService.getCurrentUser();
+
         OmsCartItemExample omsCartItemExample = new OmsCartItemExample();
-        omsCartItemExample.createCriteria().andProductSkuIdIn(omsCartDeleteParam.getProductSkuIds());
+        omsCartItemExample.createCriteria().andUserIdEqualTo(umsUser.getUserId().longValue())
+                .andProductSkuIdIn(omsCartDeleteParam.getProductSkuIds());
 
         return omsCartItemMapper.deleteByExample(omsCartItemExample) > 0;
     }

@@ -22,6 +22,9 @@ public class PmsSkuStock implements Serializable {
     @ApiModelProperty(value = "状态 1:enable, 0:disable, -1:deleted")
     private Integer status;
 
+    @ApiModelProperty(value = "锁定库存")
+    private Integer lockStock;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -72,6 +75,14 @@ public class PmsSkuStock implements Serializable {
         this.status = status;
     }
 
+    public Integer getLockStock() {
+        return lockStock;
+    }
+
+    public void setLockStock(Integer lockStock) {
+        this.lockStock = lockStock;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -84,6 +95,7 @@ public class PmsSkuStock implements Serializable {
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", status=").append(status);
+        sb.append(", lockStock=").append(lockStock);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

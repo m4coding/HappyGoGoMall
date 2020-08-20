@@ -31,6 +31,9 @@ public class UmsUserReceiverAddress implements Serializable {
     @ApiModelProperty(value = "详细地址(街道)")
     private String detailAddress;
 
+    @ApiModelProperty(value = "收货人名称")
+    private String name;
+
     private static final long serialVersionUID = 1L;
 
     public Long getId() {
@@ -105,6 +108,14 @@ public class UmsUserReceiverAddress implements Serializable {
         this.detailAddress = detailAddress;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -120,6 +131,7 @@ public class UmsUserReceiverAddress implements Serializable {
         sb.append(", city=").append(city);
         sb.append(", region=").append(region);
         sb.append(", detailAddress=").append(detailAddress);
+        sb.append(", name=").append(name);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

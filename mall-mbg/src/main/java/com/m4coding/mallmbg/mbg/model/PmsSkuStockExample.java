@@ -463,6 +463,66 @@ public class PmsSkuStockExample {
             addCriterion("status not between", value1, value2, "status");
             return (Criteria) this;
         }
+
+        public Criteria andLockStockIsNull() {
+            addCriterion("lock_stock is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockIsNotNull() {
+            addCriterion("lock_stock is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockEqualTo(Integer value) {
+            addCriterion("lock_stock =", value, "lockStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockNotEqualTo(Integer value) {
+            addCriterion("lock_stock <>", value, "lockStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockGreaterThan(Integer value) {
+            addCriterion("lock_stock >", value, "lockStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockGreaterThanOrEqualTo(Integer value) {
+            addCriterion("lock_stock >=", value, "lockStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockLessThan(Integer value) {
+            addCriterion("lock_stock <", value, "lockStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockLessThanOrEqualTo(Integer value) {
+            addCriterion("lock_stock <=", value, "lockStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockIn(List<Integer> values) {
+            addCriterion("lock_stock in", values, "lockStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockNotIn(List<Integer> values) {
+            addCriterion("lock_stock not in", values, "lockStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockBetween(Integer value1, Integer value2) {
+            addCriterion("lock_stock between", value1, value2, "lockStock");
+            return (Criteria) this;
+        }
+
+        public Criteria andLockStockNotBetween(Integer value1, Integer value2) {
+            addCriterion("lock_stock not between", value1, value2, "lockStock");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

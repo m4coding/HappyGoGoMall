@@ -4,7 +4,6 @@ import io.swagger.annotations.ApiModelProperty;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Positive;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -13,7 +12,7 @@ import java.util.List;
 public class OmsOrderConfirmParam {
 
     @ApiModelProperty(value = "商品列表")
-    @NotEmpty
+    @NotEmpty(message = "商品列表入参不能为空")
     private List<OmsOrderConfirmProductParam> productList;
 
     public List<OmsOrderConfirmProductParam> getProductList() {
@@ -46,42 +45,6 @@ public class OmsOrderConfirmParam {
 
         public void setQuantity(Long quantity) {
             this.quantity = quantity;
-        }
-    }
-
-    /**
-     * 确认订单时计算的金额
-     */
-    public static class OmsOrderConfirmCalculateSum {
-        //订单商品总金额
-        private BigDecimal totalProductAmount;
-        //运费
-        private BigDecimal freightAmount;
-        //应付金额
-        private BigDecimal payAmount;
-
-        public BigDecimal getTotalProductAmount() {
-            return totalProductAmount;
-        }
-
-        public void setTotalProductAmount(BigDecimal totalProductAmount) {
-            this.totalProductAmount = totalProductAmount;
-        }
-
-        public BigDecimal getFreightAmount() {
-            return freightAmount;
-        }
-
-        public void setFreightAmount(BigDecimal freightAmount) {
-            this.freightAmount = freightAmount;
-        }
-
-        public BigDecimal getPayAmount() {
-            return payAmount;
-        }
-
-        public void setPayAmount(BigDecimal payAmount) {
-            this.payAmount = payAmount;
         }
     }
 }
