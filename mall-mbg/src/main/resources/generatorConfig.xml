@@ -139,5 +139,22 @@
         <table tableName="ums_user_receiver_address">
             <generatedKey column="id" sqlStatement="MySql" identity="true"/>
         </table>
+
+        <!-- 通用地址数据表-->
+        <table tableName="province">
+            <generatedKey column="_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="city">
+            <generatedKey column="_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="county">
+            <generatedKey column="_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="town">
+            <generatedKey column="_id" sqlStatement="MySql" identity="true"/>
+        </table>
+        <table tableName="village">
+            <generatedKey column="_id" sqlStatement="MySql" identity="true"/>
+        </table>
     </context>
 </generatorConfiguration>

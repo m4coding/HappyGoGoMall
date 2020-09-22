@@ -1,5 +1,7 @@
 package com.m4coding.mallforeground.service;
 
+import com.m4coding.mallforeground.dto.AreaParams;
+import com.m4coding.mallforeground.dto.CommonAddressResult;
 import com.m4coding.mallmbg.mbg.model.UmsUserReceiverAddress;
 
 import java.util.List;
@@ -36,4 +38,11 @@ public interface UmsUserReceiverAddressService {
      * @param id 地址id
      */
     UmsUserReceiverAddress getItem(Long id);
+
+    /**
+     * 获取区域地址
+     * @param areaParams
+     * @return
+     */
+    List<CommonAddressResult> getAreaAddress(AreaParams areaParams) throws Exception;
 }
